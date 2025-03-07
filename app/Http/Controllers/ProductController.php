@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name_product' => 'required|string',
+            'product_name' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
             'quota' => 'required|integer'
@@ -67,11 +67,10 @@ class ProductController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'phone' => 'required|min:6',
-            'address' => 'required|string',
-            'id_login' => 'required|integer',
+            'product_name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'quota' => 'required|integer'
         ]);
 
         $product->update($request->all());
