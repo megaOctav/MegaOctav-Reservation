@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,3 +13,5 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('customers', CustomerController::class);
 Route::apiResource('bookings', BookingController::class);
+Route::apiResource('admins', AdminController::class);
+Route::apiResource('products', ProductController::class);
