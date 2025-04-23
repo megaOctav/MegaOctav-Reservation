@@ -14,7 +14,7 @@ class ProductController extends Controller
 
         return response()->json([
             'status' => 200,
-            'message' => 'Customers retrieved successfully.',
+            'message' => 'Product retrieved successfully.',
             'data' => $products
         ], 200);
     }
@@ -50,7 +50,7 @@ class ProductController extends Controller
 
         return response()->json([
             'status' => 200,
-            'message' => 'Customer retrieved successfully.',
+            'message' => 'Product retrieved successfully.',
             'data' => $product
         ], 200);
     }
