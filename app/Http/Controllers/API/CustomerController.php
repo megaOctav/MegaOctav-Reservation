@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
+use App\Models\customer;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -40,7 +40,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customers = customer::all();
 
         return response()->json([
             'success' => true,
