@@ -5,6 +5,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\KonfirmasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::apiResource('bookings', BookingController::class);
 Route::apiResource('admins', AdminController::class);
 Route::apiResource('products', ProductController::class);
 Route::apiResource('payments', PaymentController::class);
+Route::apiResource('konfirmasi', KonfirmasiController::class);
 
 Route::group([], function () {
     Route::get('product', [ProductController::class, 'ListProduct']);
@@ -39,4 +41,8 @@ Route::group([], function () {
 
 Route::group([], function () {
     Route::get('admin', [AdminController::class, 'ListAdmin']);
+});
+
+Route::group([], function () {
+    Route::get('konfirmasi', [KonfirmasiController::class, 'ListKonfirmasi']);
 });
