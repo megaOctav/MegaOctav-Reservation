@@ -8,8 +8,6 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\KonfirmasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-
 
 //swagger
 use App\Http\Controllers\API\CategoryController;
@@ -18,37 +16,26 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('customers', CustomerController::class);
-Route::apiResource('bookings', BookingController::class);
-Route::apiResource('admins', AdminController::class);
-Route::apiResource('products', ProductController::class);
-Route::apiResource('payments', PaymentController::class);
-Route::apiResource('konfirmasi', KonfirmasiController::class);
-Route::apiResource('users', UserController::class); 
+Route::group([], function () {
+    Route::get('product', [ProductController::class, 'ListProduct']);
+});
 
 Route::group([], function () {
-    // Produk
-    Route::get('product', [ProductController::class, 'ListProduct']);
-    Route::post('product', [ProductController::class, 'store']);
-
-    // Customer
     Route::get('customer', [CustomerController::class, 'ListCustomer']);
+});
 
-    // Booking
+Route::group([], function () {
     Route::get('booking', [BookingController::class, 'ListBooking']);
+});
 
-    // Payment
+Route::group([], function () {
     Route::get('payment', [PaymentController::class, 'ListPayment']);
+});
 
-    // Admin
+Route::group([], function () {
     Route::get('admin', [AdminController::class, 'ListAdmin']);
+});
 
-    // Konfirmasi
+Route::group([], function () {
     Route::get('konfirmasi', [KonfirmasiController::class, 'ListKonfirmasi']);
-
-    // User (tambahan)
-    Route::get('user', [UserController::class, 'index']);
-    Route::post('user', [UserController::class, 'store']);
-    Route::put('user/{id}', [UserController::class, 'update']);
-    Route::delete('user/{id}', [UserController::class, 'destroy']);
 });
