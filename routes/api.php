@@ -5,6 +5,8 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\UserController;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +36,7 @@ Route::group([], function () {
 
 Route::group([], function () {
     Route::get('admin', [AdminController::class, 'ListAdmin']);
+});
+Route::group([], function () {
+    Route::get('user', [UserController::class, 'ListUser']);
 });
