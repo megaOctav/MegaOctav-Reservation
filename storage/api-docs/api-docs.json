@@ -24,39 +24,158 @@
                 "tags": [
                     "Admin"
                 ],
-                "summary": "List of Admin",
-                "description": "Retrieve a list of admins",
+                "summary": "List of Admins",
+                "description": "Retrieve all admins",
                 "operationId": "listAdmins",
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "Successful",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 200,
-                                    "message": "Admins retrieved successfully.",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "username_adm": 101,
-                                            "email_adm": "shena@dewacode.com",
-                                            "phone_adm": "12345670",
-                                            "created_at": "2025-04-30T08:00:00Z",
-                                            "updated_at": "2025-04-30T08:00:00Z"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "username_adm": 102,
-                                            "email_adm": "windsor@dewacode.com",
-                                            "phone_adm": "12345679",
-                                            "created_at": "2025-04-30T08:00:00Z",
-                                            "updated_at": "2025-04-30T08:00:00Z"
-                                        }
-                                    ]
+                                "schema": {
+                                    "type": "object"
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Create a new admin",
+                "operationId": "baa0a820498d0a605cfcac5b8813cc5d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username_adm",
+                                    "email_adm",
+                                    "phone_adm"
+                                ],
+                                "properties": {
+                                    "username_adm": {
+                                        "type": "string"
+                                    },
+                                    "email_adm": {
+                                        "type": "string"
+                                    },
+                                    "phone_adm": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/admin/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get admin by ID",
+                "operationId": "5c0d8a7360f3967ee917251fc41ee059",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update an admin",
+                "operationId": "571766f5dc242a84e7ac5c2c939b661f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "username_adm": {
+                                        "type": "string"
+                                    },
+                                    "email_adm": {
+                                        "type": "string"
+                                    },
+                                    "phone_adm": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete an admin",
+                "operationId": "d6e7f69ef2796ae0cf5934f2b6b4223f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             }
@@ -484,20 +603,135 @@
                                 "example": {
                                     "success": true,
                                     "message": "Successfully retrieved payments",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "amount": 150000,
-                                            "payment_date": "2025-04-30T10:00:00Z",
-                                            "method": "Transfer Bank",
-                                            "customer_id": 1,
-                                            "created_at": "2025-04-30T10:00:00Z",
-                                            "updated_at": "2025-04-30T10:00:00Z"
-                                        }
-                                    ]
+                                    "data": []
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/payments/{id}": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get Payment by ID",
+                "operationId": "getPaymentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the payment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": true,
+                                    "message": "Payment retrieved successfully",
+                                    "data": []
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Payment not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Update a Payment",
+                "operationId": "updatePayment",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "amount",
+                                    "payment_date",
+                                    "method",
+                                    "customer_id"
+                                ],
+                                "properties": {
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 150000
+                                    },
+                                    "payment_date": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-04-30T10:00:00Z"
+                                    },
+                                    "method": {
+                                        "type": "string",
+                                        "example": "Transfer Bank"
+                                    },
+                                    "customer_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Payment updated successfully"
+                    },
+                    "404": {
+                        "description": "Payment not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Delete a Payment",
+                "operationId": "deletePayment",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Payment deleted successfully"
+                    },
+                    "404": {
+                        "description": "Payment not found"
                     }
                 }
             }
