@@ -499,19 +499,203 @@
                 }
             }
         },
+        "/konfirmasi": {
+            "get": {
+                "tags": [
+                    "Konfirmasi"
+                ],
+                "summary": "List of Konfirmasi",
+                "description": "Retrieve all konfirmasi records",
+                "operationId": "45bf9c676f1ff80d0d877348e03b65bf",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Konfirmasi retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "id_booking": {
+                                                        "type": "integer",
+                                                        "example": 101
+                                                    },
+                                                    "payment_method": {
+                                                        "type": "string",
+                                                        "example": "credit card"
+                                                    },
+                                                    "payment_status": {
+                                                        "type": "string",
+                                                        "example": "paid"
+                                                    },
+                                                    "total_payment": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 500
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Konfirmasi"
+                ],
+                "summary": "Create a new konfirmasi",
+                "operationId": "78a6d31e7b391593c6ce8859564f96ea",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_booking",
+                                    "payment_method",
+                                    "payment_status",
+                                    "total_payment"
+                                ],
+                                "properties": {
+                                    "id_booking": {
+                                        "type": "integer",
+                                        "example": 101
+                                    },
+                                    "payment_method": {
+                                        "type": "string",
+                                        "example": "credit card"
+                                    },
+                                    "payment_status": {
+                                        "type": "string",
+                                        "example": "paid"
+                                    },
+                                    "total_payment": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 500
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Konfirmasi created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Konfirmasi created successfully."
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/konfirmasi/{id}": {
             "put": {
                 "tags": [
                     "Konfirmasi"
                 ],
-                "summary": "Konfirmasi",
-                "description": "Mengubah status konfirmasi",
-                "operationId": "konfirmasi",
+                "summary": "Update konfirmasi",
+                "operationId": "45c93f81d52a87e58689bc802f299e7e",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID konfirmasi yang akan dikonfirmasi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "payment_method": {
+                                        "type": "string",
+                                        "example": "credit card"
+                                    },
+                                    "payment_status": {
+                                        "type": "string",
+                                        "example": "paid"
+                                    },
+                                    "total_payment": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 500
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Konfirmasi updated successfully"
+                    },
+                    "404": {
+                        "description": "Konfirmasi not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Konfirmasi"
+                ],
+                "summary": "Delete konfirmasi",
+                "operationId": "3cb3dea6c577d0f375117452fcde9bd3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -520,68 +704,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Berhasil konfirmasi",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 200,
-                                    "message": "Berhasil konfirmasi.",
-                                    "data": {
-                                        "id": 1,
-                                        "id_booking": 101,
-                                        "payment_method": "credit card",
-                                        "payment_status": "paid",
-                                        "total_payment": 500,
-                                        "created_at": "2025-04-30T08:00:00Z",
-                                        "updated_at": "2025-04-30T08:00:00Z"
-                                    }
-                                }
-                            }
-                        }
+                        "description": "Konfirmasi deleted successfully"
                     },
                     "404": {
-                        "description": "Konfirmasi tidak ditemukan",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 404,
-                                    "message": "Konfirmasi tidak ditemukan."
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/logins": {
-            "get": {
-                "tags": [
-                    "Login"
-                ],
-                "summary": "List of Logins",
-                "description": "Retrieve a list of all login records",
-                "operationId": "listLogins",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "success": true,
-                                    "message": "Successfully retrieved logins",
-                                    "data": [
-                                        {
-                                            "Id_Login": 1,
-                                            "Username": "johndoe",
-                                            "Password": "hashed_password"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
+                        "description": "Konfirmasi not found"
                     }
                 }
             }
@@ -770,9 +896,127 @@
                     }
                 }
             }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Ambil semua user",
+                "operationId": "41a0b1897bd592c41f6d146d6dc328c6",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil ambil data user"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Tambah user baru",
+                "operationId": "0e35d9af69683ea46987bd306963b368",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User berhasil dibuat"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user",
+                "operationId": "8c7afeaa86a5fe7a9e7625b62fc415cc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User berhasil diupdate"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Hapus user",
+                "operationId": "3ffc44ca53282cb725f506f80f4e03b8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User berhasil dihapus"
+                    }
+                }
+            }
         }
     },
     "tags": [
+        {
+            "name": "User",
+            "description": "API untuk operasi data user"
+        },
         {
             "name": "Admin",
             "description": "Admin"
@@ -788,10 +1032,6 @@
         {
             "name": "Konfirmasi",
             "description": "Konfirmasi"
-        },
-        {
-            "name": "Login",
-            "description": "Login"
         },
         {
             "name": "Payment",
