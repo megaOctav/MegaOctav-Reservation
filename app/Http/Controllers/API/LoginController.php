@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Login;
+use App\Models\login;
 
 class LoginController extends Controller
 {
@@ -35,7 +35,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        $logins = Login::all();
+        $logins = login::all();
 
         return response()->json([
             'success' => true,
