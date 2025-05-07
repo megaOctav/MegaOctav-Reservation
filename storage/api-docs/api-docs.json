@@ -86,19 +86,118 @@
                                             "status": "confirmed",
                                             "created_at": "2025-04-30T08:00:00Z",
                                             "updated_at": "2025-04-30T08:00:00Z"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "id_customer": 102,
-                                            "booking_date": "2025-05-01",
-                                            "status": "pending",
-                                            "created_at": "2025-04-30T09:00:00Z",
-                                            "updated_at": "2025-04-30T09:00:00Z"
                                         }
                                     ]
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Booking"
+                ],
+                "summary": "Create a new booking",
+                "operationId": "dca7cbcf46cb0620d642fc6564252b98",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_customer",
+                                    "booking_date",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "id_customer": {
+                                        "type": "integer"
+                                    },
+                                    "booking_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Booking created successfully"
+                    }
+                }
+            }
+        },
+        "/booking/{id}": {
+            "put": {
+                "tags": [
+                    "Booking"
+                ],
+                "summary": "Update a booking",
+                "operationId": "7c2a8beb2b290a0749ae2ddc2e402658",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_customer": {
+                                        "type": "integer"
+                                    },
+                                    "booking_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Booking updated successfully"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Booking"
+                ],
+                "summary": "Delete a booking",
+                "operationId": "11aaee3099878ef7faf9f688e1b137ca",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Booking deleted successfully"
                     }
                 }
             }
@@ -129,6 +228,236 @@
                                             "address": "Jl. Merdeka No.1",
                                             "created_at": "2025-04-30T10:00:00Z",
                                             "updated_at": "2025-04-30T10:00:00Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Create a new customer",
+                "operationId": "e7208b4c24c636850e6e9fe5b4b17ddc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "phone",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Customer created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": 201,
+                                    "message": "Customer created successfully.",
+                                    "data": []
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/customers/{id}": {
+            "put": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Update a customer",
+                "operationId": "32503c5afb8a91e8edeb1bc22a5eef88",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Customer updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": 200,
+                                    "message": "Customer updated successfully.",
+                                    "data": []
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Delete a customer",
+                "operationId": "908f0009936be5c598accf67add60e64",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Customer deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": 200,
+                                    "message": "Customer deleted successfully."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/konfirmasi/{id}": {
+            "put": {
+                "tags": [
+                    "Konfirmasi"
+                ],
+                "summary": "Konfirmasi",
+                "description": "Mengubah status konfirmasi",
+                "operationId": "konfirmasi",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID konfirmasi yang akan dikonfirmasi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil konfirmasi",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": 200,
+                                    "message": "Berhasil konfirmasi.",
+                                    "data": {
+                                        "id": 1,
+                                        "id_booking": 101,
+                                        "payment_method": "credit card",
+                                        "payment_status": "paid",
+                                        "total_payment": 500,
+                                        "created_at": "2025-04-30T08:00:00Z",
+                                        "updated_at": "2025-04-30T08:00:00Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Konfirmasi tidak ditemukan",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": 404,
+                                    "message": "Konfirmasi tidak ditemukan."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logins": {
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "List of Logins",
+                "description": "Retrieve a list of all login records",
+                "operationId": "listLogins",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": true,
+                                    "message": "Successfully retrieved logins",
+                                    "data": [
+                                        {
+                                            "Id_Login": 1,
+                                            "Username": "johndoe",
+                                            "Password": "hashed_password"
                                         }
                                     ]
                                 }
@@ -339,6 +668,14 @@
         {
             "name": "Customer",
             "description": "Customer"
+        },
+        {
+            "name": "Konfirmasi",
+            "description": "Konfirmasi"
+        },
+        {
+            "name": "Login",
+            "description": "Login"
         },
         {
             "name": "Payment",
