@@ -25,6 +25,7 @@ Route::apiResource('konfirmasi', KonfirmasiController::class);
 
 Route::group([], function () {
     Route::get('product', [ProductController::class, 'ListProduct']);
+    Route::post('/', [ProductController::class, 'store']);
 });
 
 Route::group([], function () {
