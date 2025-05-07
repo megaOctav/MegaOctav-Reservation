@@ -53,24 +53,14 @@ class KonfirmasiController extends Controller
     *     )
     * )
     */
-   public function konfirmasi($id)
-   {
-       $konfirmasi = Konfirmasi::find($id);
+    public function index()
+    {
+        $konfirmasi = konfirmasi::all();
 
-       if (!$konfirmasi) {
-           return response()->json([
-               'status' => 404,
-               'message' => 'Konfirmasi tidak ditemukan.'
-           ], 404);
-       }
-
-       $konfirmasi->payment_status = 'confirmed';
-       $konfirmasi->save();
-
-       return response()->json([
-           'status' => 200,
-           'message' => 'Berhasil konfirmasi.',
-           'data' => $konfirmasi
-       ], 200);
-   }
+        return response()->json([
+            'status' => 200,
+            'message' => 'Confirmations retrieved successfully.',
+            'data' => $konfirmasi
+        ], 200);
+    }
 }
