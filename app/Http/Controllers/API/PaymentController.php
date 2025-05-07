@@ -3,35 +3,33 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Payment;
 
-/**
- * @OA\Tag(
- *     name="Payment",
- *     description="API untuk operasi CRUD pembayaran"
- * )
- */
 class PaymentController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/payments",
+     *     path="/payments",
      *     tags={"Payment"},
-     *     summary="Menampilkan semua data pembayaran",
+     *     operationId="listPayments",
+     *     summary="List of Payments",
+     *     description="Retrieve a list of all payments",
      *     @OA\Response(
      *         response=200,
-     *         description="Payments retrieved successfully",
+     *         description="Successful operation",
      *         @OA\JsonContent(
      *             example={
-     *                 "status": 200,
-     *                 "message": "Payments retrieved successfully.",
+     *                 "success": true,
+     *                 "message": "Successfully retrieved payments",
      *                 "data": {
      *                     {
      *                         "id": 1,
-     *                         "id_customer": 1,
-     *                         "id_product": 2,
-     *                         "total": 50000,
-     *                         "status": "completed"
+     *                         "amount": 150000,
+     *                         "payment_date": "2025-04-30T10:00:00Z",
+     *                         "method": "Transfer Bank",
+     *                         "customer_id": 1,
+     *                         "created_at": "2025-04-30T10:00:00Z",
+     *                         "updated_at": "2025-04-30T10:00:00Z"
      *                     }
      *                 }
      *             }
@@ -39,113 +37,14 @@ class PaymentController extends Controller
      *     )
      * )
      */
+    public function index()
+    {
+        $payments = Payment::all();
 
-    /**
-     * @OA\Post(
-     *     path="/api/payments",
-     *     tags={"Payment"},
-     *     summary="Membuat pembayaran baru",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"id_customer", "id_product", "total", "status"},
-     *             @OA\Property(property="id_customer", type="integer"),
-     *             @OA\Property(property="id_product", type="integer"),
-     *             @OA\Property(property="total", type="integer"),
-     *             @OA\Property(property="status", type="string")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Payment created successfully",
-     *         @OA\JsonContent(
-     *             example={
-     *                 "status": 201,
-     *                 "message": "Payment created successfully.",
-     *                 "data": {
-     *                     "id": 1,
-     *                     "id_customer": 1,
-     *                     "id_product": 2,
-     *                     "total": 50000,
-     *                     "status": "completed"
-     *                 }
-     *             }
-     *         )
-     *     )
-     * )
-     */
-
-    /**
-     * @OA\Get(
-     *     path="/api/payments/{id}",
-     *     tags={"Payment"},
-     *     summary="Menampilkan detail pembayaran berdasarkan ID",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Payment retrieved successfully",
-     *         @OA\JsonContent(
-     *             example={
-     *                 "status": 200,
-     *                 "message": "Payment retrieved successfully.",
-     *                 "data": {
-     *                     "id": 1,
-     *                     "id_customer": 1,
-     *                     "id_product": 2,
-     *                     "total": 50000,
-     *                     "status": "completed"
-     *                 }
-     *             }
-     *         )
-     *     ),
-     *     @OA\Response(response=404, description="Payment not found")
-     * )
-     */
-
-    /**
-     * @OA\Put(
-     *     path="/api/payments/{id}",
-     *     tags={"Payment"},
-     *     summary="Memperbarui data pembayaran berdasarkan ID",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"id_customer", "id_product", "total", "status"},
-     *             @OA\Property(property="id_customer", type="integer"),
-     *             @OA\Property(property="id_product", type="integer"),
-     *             @OA\Property(property="total", type="integer"),
-     *             @OA\Property(property="status", type="string")
-     *         )
-     *     ),
-     *     @OA\Response(response=200, description="Payment updated successfully"),
-     *     @OA\Response(response=404, description="Payment not found")
-     * )
-     */
-
-    /**
-     * @OA\Delete(
-     *     path="/api/payments/{id}",
-     *     tags={"Payment"},
-     *     summary="Menghapus data pembayaran berdasarkan ID",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(response=200, description="Payment deleted successfully"),
-     *     @OA\Response(response=404, description="Payment not found")
-     * )
-     */
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully retrieved payments',
+            'data' => $payments
+        ]);
+    }
 }

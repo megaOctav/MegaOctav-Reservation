@@ -22,5 +22,21 @@ Route::apiResource('products', ProductController::class);
 Route::apiResource('payments', PaymentController::class);
 
 Route::group([], function () {
-    Route::get('', [ProductController::class, 'ListCategory']);
+    Route::get('product', [ProductController::class, 'ListProduct']);
+});
+
+Route::group([], function () {
+    Route::get('customer', [CustomerController::class, 'ListCustomer']);
+});
+
+Route::group([], function () {
+    Route::get('booking', [BookingController::class, 'ListBooking']);
+});
+
+Route::group([], function () {
+    Route::get('payment', [PaymentController::class, 'ListPayment']);
+});
+
+Route::group([], function () {
+    Route::get('admin', [AdminController::class, 'ListAdmin']);
 });
