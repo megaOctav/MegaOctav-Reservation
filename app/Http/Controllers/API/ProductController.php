@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\product;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = product::all();
+        $products = Product::all();
         return response()->json([
             'success' => true,
             'message' => 'Successfully retrieved products',
@@ -52,7 +52,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = product::create($request->all());
+        $product = Product::create($request->all());
         return response()->json([
             'success' => true,
             'message' => 'Product created successfully',
@@ -86,7 +86,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = product::findOrFail($id);
+        $product = Product::findOrFail($id);
         $product->update($request->all());
 
         return response()->json([
@@ -113,7 +113,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = product::findOrFail($id);
+        $product = Product::findOrFail($id);
         $product->delete();
 
         return response()->json([

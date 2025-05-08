@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\booking;
+use App\Models\Booking;
 
 class BookingController extends Controller
 {
@@ -39,7 +39,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = booking::all();
+        $bookings = Booking::all();
 
         return response()->json([
             'status' => 200,
@@ -73,7 +73,7 @@ class BookingController extends Controller
             'status' => 'required|string'
         ]);
 
-        $booking = booking::create($validated);
+        $booking = Booking::create($validated);
 
         return response()->json([
             'status' => 201,
@@ -106,7 +106,7 @@ class BookingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $booking = booking::findOrFail($id);
+        $booking = Booking::findOrFail($id);
 
         $booking->update($request->only(['id_customer', 'booking_date', 'status']));
 
@@ -133,7 +133,7 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        $booking = booking::findOrFail($id);
+        $booking = Booking::findOrFail($id);
         $booking->delete();
 
         return response()->json([
