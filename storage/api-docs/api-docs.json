@@ -24,39 +24,158 @@
                 "tags": [
                     "Admin"
                 ],
-                "summary": "List of Admin",
-                "description": "Retrieve a list of admins",
+                "summary": "List of Admins",
+                "description": "Retrieve all admins",
                 "operationId": "listAdmins",
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "Successful",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 200,
-                                    "message": "Admins retrieved successfully.",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "username_adm": 101,
-                                            "email_adm": "shena@dewacode.com",
-                                            "phone_adm": "12345670",
-                                            "created_at": "2025-04-30T08:00:00Z",
-                                            "updated_at": "2025-04-30T08:00:00Z"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "username_adm": 102,
-                                            "email_adm": "windsor@dewacode.com",
-                                            "phone_adm": "12345679",
-                                            "created_at": "2025-04-30T08:00:00Z",
-                                            "updated_at": "2025-04-30T08:00:00Z"
-                                        }
-                                    ]
+                                "schema": {
+                                    "type": "object"
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Create a new admin",
+                "operationId": "baa0a820498d0a605cfcac5b8813cc5d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username_adm",
+                                    "email_adm",
+                                    "phone_adm"
+                                ],
+                                "properties": {
+                                    "username_adm": {
+                                        "type": "string"
+                                    },
+                                    "email_adm": {
+                                        "type": "string"
+                                    },
+                                    "phone_adm": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/admin/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get admin by ID",
+                "operationId": "5c0d8a7360f3967ee917251fc41ee059",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update an admin",
+                "operationId": "571766f5dc242a84e7ac5c2c939b661f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "username_adm": {
+                                        "type": "string"
+                                    },
+                                    "email_adm": {
+                                        "type": "string"
+                                    },
+                                    "phone_adm": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete an admin",
+                "operationId": "d6e7f69ef2796ae0cf5934f2b6b4223f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             }
@@ -286,6 +405,33 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/customer/{id}": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get admin by ID",
+                "operationId": "326599a5241bfc8ed73e873376027868",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             }

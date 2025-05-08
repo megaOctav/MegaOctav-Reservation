@@ -78,6 +78,7 @@ class CustomerController extends Controller
      *     )
      * )
      */
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -95,6 +96,32 @@ class CustomerController extends Controller
             'data' => $customer
         ], 201);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/customer/{id}",
+     *     tags={"Customer"},
+     *     summary="Get admin by ID",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=404, description="Not Found")
+     * )
+     */
+    public function show($id)
+    {
+        $customer = customer::find($id);
+        if (!$customer) {
+            return response()->json(['status' => 404, 'message' => 'Customer not found'], 404);
+        }
+
+        return response()->json(['status' => 200, 'message' => 'Customer found', 'data' => $customer]);
+    }
+
 
     /**
      * @OA\Put(
