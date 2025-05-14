@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\payment;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -31,7 +31,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = payment::all();
+        $payments = Payment::all();
 
         return response()->json([
             'success' => true,
@@ -69,7 +69,7 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $payment = payment::find($id);
+        $payment = Payment::find($id);
 
         if (!$payment) {
             return response()->json([
@@ -114,7 +114,7 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $payment = payment::find($id);
+        $payment = Payment::find($id);
 
         if (!$payment) {
             return response()->json([
@@ -151,7 +151,7 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        $payment = payment::find($id);
+        $payment = Payment::find($id);
 
         if (!$payment) {
             return response()->json([

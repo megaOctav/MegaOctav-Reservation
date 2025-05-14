@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\admin;
+use App\Models\Admin;
 
 class AdminController extends Controller
 {
@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = admin::all();
+        $admins = Admin::all();
         return response()->json([
             'status' => 200,
             'message' => 'Admins retrieved successfully.',
@@ -49,7 +49,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        $admin = admin::find($id);
+        $admin = Admin::find($id);
         if (!$admin) {
             return response()->json(['status' => 404, 'message' => 'Admin not found'], 404);
         }
@@ -83,7 +83,7 @@ class AdminController extends Controller
             'phone_adm' => 'required|string|max:20'
         ]);
 
-        $admin = admin::create($request->all());
+        $admin = Admin::create($request->all());
 
         return response()->json([
             'status' => 201,
@@ -117,7 +117,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $admin = admin::find($id);
+        $admin = Admin::find($id);
         if (!$admin) {
             return response()->json(['status' => 404, 'message' => 'Admin not found'], 404);
         }
@@ -148,7 +148,7 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        $admin = admin::find($id);
+        $admin = Admin::find($id);
         if (!$admin) {
             return response()->json(['status' => 404, 'message' => 'Admin not found'], 404);
         }

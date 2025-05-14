@@ -409,6 +409,33 @@
                 }
             }
         },
+        "/customer/{id}": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get admin by ID",
+                "operationId": "326599a5241bfc8ed73e873376027868",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/customers/{id}": {
             "put": {
                 "tags": [
@@ -499,19 +526,203 @@
                 }
             }
         },
+        "/konfirmasi": {
+            "get": {
+                "tags": [
+                    "Konfirmasi"
+                ],
+                "summary": "List of Konfirmasi",
+                "description": "Retrieve all konfirmasi records",
+                "operationId": "45bf9c676f1ff80d0d877348e03b65bf",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Konfirmasi retrieved successfully."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "id_booking": {
+                                                        "type": "integer",
+                                                        "example": 101
+                                                    },
+                                                    "payment_method": {
+                                                        "type": "string",
+                                                        "example": "credit card"
+                                                    },
+                                                    "payment_status": {
+                                                        "type": "string",
+                                                        "example": "paid"
+                                                    },
+                                                    "total_payment": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 500
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Konfirmasi"
+                ],
+                "summary": "Create a new konfirmasi",
+                "operationId": "78a6d31e7b391593c6ce8859564f96ea",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_booking",
+                                    "payment_method",
+                                    "payment_status",
+                                    "total_payment"
+                                ],
+                                "properties": {
+                                    "id_booking": {
+                                        "type": "integer",
+                                        "example": 101
+                                    },
+                                    "payment_method": {
+                                        "type": "string",
+                                        "example": "credit card"
+                                    },
+                                    "payment_status": {
+                                        "type": "string",
+                                        "example": "paid"
+                                    },
+                                    "total_payment": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 500
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Konfirmasi created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Konfirmasi created successfully."
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/konfirmasi/{id}": {
             "put": {
                 "tags": [
                     "Konfirmasi"
                 ],
-                "summary": "Konfirmasi",
-                "description": "Mengubah status konfirmasi",
-                "operationId": "konfirmasi",
+                "summary": "Update konfirmasi",
+                "operationId": "45c93f81d52a87e58689bc802f299e7e",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID konfirmasi yang akan dikonfirmasi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "payment_method": {
+                                        "type": "string",
+                                        "example": "credit card"
+                                    },
+                                    "payment_status": {
+                                        "type": "string",
+                                        "example": "paid"
+                                    },
+                                    "total_payment": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 500
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Konfirmasi updated successfully"
+                    },
+                    "404": {
+                        "description": "Konfirmasi not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Konfirmasi"
+                ],
+                "summary": "Delete konfirmasi",
+                "operationId": "3cb3dea6c577d0f375117452fcde9bd3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -520,27 +731,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Berhasil konfirmasi",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 200,
-                                    "message": "Berhasil konfirmasi.",
-                                    "data": {
-                                        "id": 1,
-                                        "id_booking": 101,
-                                        "payment_method": "credit card",
-                                        "payment_status": "paid",
-                                        "total_payment": 500,
-                                        "created_at": "2025-04-30T08:00:00Z",
-                                        "updated_at": "2025-04-30T08:00:00Z"
-                                    }
-                                }
-                            }
-                        }
+                        "description": "Konfirmasi deleted successfully"
                     },
                     "404": {
+<<<<<<< HEAD
                         "description": "Konfirmasi tidak ditemukan",
                         "content": {
                             "application/json": {
@@ -551,6 +745,9 @@
                                 }
                             }
                         }
+=======
+                        "description": "Konfirmasi not found"
+>>>>>>> 477551634ee114aa9d00c1c4e987e7941f9da8f9
                     }
                 }
             }
@@ -715,27 +912,120 @@
                 "operationId": "listProducts",
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "success": true,
-                                    "message": "Successfully retrieved products",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "name": "RKJ",
-                                            "price": 200000,
-                                            "stock": 10,
-                                            "description": "Black cotton t-shirt",
-                                            "created_at": "2025-04-30T10:00:00Z",
-                                            "updated_at": "2025-04-30T10:00:00Z"
-                                        }
-                                    ]
-                                }
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create a new product",
+                "operationId": "createProduct",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "price",
+                                    "stock",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "stock": {
+                                        "type": "integer"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product created"
+                    }
+                }
+            }
+        },
+        "/products/{id}": {
+            "put": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update a product",
+                "operationId": "updateProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number"
+                                    },
+                                    "stock": {
+                                        "type": "integer"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete a product",
+                "operationId": "deleteProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product deleted"
                     }
                 }
             }

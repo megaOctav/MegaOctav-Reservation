@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\KonfirmasiController;
+use App\Http\Controllers\API\AdminController;
+use App\Http\Controllers\API\BookingController;
+use App\Http\Controllers\API\CustomerController;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\PaymentController;
+use App\Http\Controllers\API\KonfirmasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\API\UserController;
+
 
 
 //swagger

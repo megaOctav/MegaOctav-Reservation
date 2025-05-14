@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\customer;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -41,7 +41,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = customer::all();
+        $customers = Customer::all();
 
         return response()->json([
             'success' => true,
@@ -78,6 +78,7 @@ class CustomerController extends Controller
      *     )
      * )
      */
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -87,7 +88,7 @@ class CustomerController extends Controller
             'address' => 'required|string',
         ]);
 
-        $customer = customer::create($validated);
+        $customer = Customer::create($validated);
 
         return response()->json([
             'status' => 201,
@@ -95,6 +96,32 @@ class CustomerController extends Controller
             'data' => $customer
         ], 201);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/customer/{id}",
+     *     tags={"Customer"},
+     *     summary="Get admin by ID",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=404, description="Not Found")
+     * )
+     */
+    public function show($id)
+    {
+        $customer = Customer::find($id);
+        if (!$customer) {
+            return response()->json(['status' => 404, 'message' => 'Customer not found'], 404);
+        }
+
+        return response()->json(['status' => 200, 'message' => 'Customer found', 'data' => $customer]);
+    }
+
 
     /**
      * @OA\Put(
@@ -131,7 +158,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $customer = customer::findOrFail($id);
+        $customer = Customer::findOrFail($id);
 
         $validated = $request->validate([
             'name' => 'sometimes|string',
@@ -174,7 +201,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $customer = customer::findOrFail($id);
+        $customer = Customer::findOrFail($id);
         $customer->delete();
 
         return response()->json([
