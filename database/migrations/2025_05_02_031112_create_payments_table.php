@@ -12,8 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_pembayaran'); // Primary Key
+
+            // Foreign Key
+            $table->unsignedBigInteger('id_pelanggan');
+            $table->unsignedBigInteger('id_produk');
+
+            // Kolom tambahan
+            $table->decimal('total', 15, 2);
+            $table->string('status_pembayaran');
+            $table->date('tanggal');
+            $table->time('waktu');
+
             $table->timestamps();
+
+            // Foreign key constraints (opsional, bisa kamu aktifkan jika FK tersedia)
+            // $table->foreign('id_pelanggan')->references('id')->on('pelanggans')->onDelete('cascade');
+            // $table->foreign('id_produk')->references('id')->on('produks')->onDelete('cascade');
         });
     }
 
