@@ -762,45 +762,56 @@
                         }
                     }
                 }
-            }
-        },
-        "/payments/{id}": {
-            "get": {
+            },
+            "post": {
                 "tags": [
                     "Payment"
                 ],
-                "summary": "Get Payment by ID",
-                "operationId": "getPaymentById",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the payment",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "success": true,
-                                    "message": "Payment retrieved successfully",
-                                    "data": []
-                                }
+                "summary": "Create a new payment",
+                "operationId": "createPayment",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "amount",
+                                    "payment_date",
+                                    "method",
+                                    "customer_id"
+                                ],
+                                "properties": {
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 150000
+                                    },
+                                    "payment_date": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-04-30T10:00:00Z"
+                                    },
+                                    "method": {
+                                        "type": "string",
+                                        "example": "Gopay"
+                                    },
+                                    "customer_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
-                    },
-                    "404": {
-                        "description": "Payment not found"
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product created"
                     }
                 }
-            },
+            }
+        },
+        "/payments/{id}": {
             "put": {
                 "tags": [
                     "Payment"
