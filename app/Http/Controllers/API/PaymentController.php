@@ -41,49 +41,34 @@ class PaymentController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *     path="/payments/{id}",
+     * @OA\Post(
+     *     path="/payments",
      *     tags={"Payment"},
-     *     operationId="getPaymentById",
-     *     summary="Get Payment by ID",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
+     *     summary="Create a new payment",
+     *     operationId="createPayment",
+     *     @OA\RequestBody(
      *         required=true,
-     *         description="ID of the payment",
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful operation",
      *         @OA\JsonContent(
-     *             example={
-     *                 "success": true,
-     *                 "message": "Payment retrieved successfully",
-     *                 "data": {}
-     *             }
+     *             required={"amount", "payment_date", "method", "customer_id"},
+     *             @OA\Property(property="amount", type="number", example=150000),
+     *             @OA\Property(property="payment_date", type="string", format="date-time", example="2025-04-30T10:00:00Z"),
+     *             @OA\Property(property="method", type="string", example="Gopay"),
+     *             @OA\Property(property="customer_id", type="integer", example=1)
      *         )
      *     ),
-     *     @OA\Response(response=404, description="Payment not found")
+     *     @OA\Response(response=201, description="Product created")
      * )
      */
-    public function show($id)
+    public function store(Request $request)
     {
-        $payment = Payment::find($id);
-
-        if (!$payment) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Payment not found',
-            ], 404);
-        }
-
+        $payment = Payment::create($request->all());
         return response()->json([
             'success' => true,
-            'message' => 'Payment retrieved successfully',
+            'message' => 'Payment created successfully',
             'data' => $payment
-        ]);
+        ], 201);
     }
+
 
     /**
      * @OA\Put(
