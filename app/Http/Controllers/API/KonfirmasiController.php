@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Confirm;
 use Illuminate\Http\Request;
-use App\Models\Konfirmasi;
 
 class KonfirmasiController extends Controller
 {
@@ -40,7 +40,7 @@ class KonfirmasiController extends Controller
      */
     public function index()
     {
-        $konfirmasi = Konfirmasi::all();
+        $konfirmasi = Confirm::all();
 
         return response()->json([
             'status' => 200,
@@ -84,7 +84,7 @@ class KonfirmasiController extends Controller
             'total_payment' => 'required|numeric'
         ]);
 
-        $konfirmasi = Konfirmasi::create($validated);
+        $konfirmasi = Confirm::create($validated);
 
         return response()->json([
             'status' => 201,
@@ -118,7 +118,7 @@ class KonfirmasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $konfirmasi = Konfirmasi::find($id);
+        $konfirmasi = Confirm::find($id);
 
         if (!$konfirmasi) {
             return response()->json([
@@ -153,7 +153,7 @@ class KonfirmasiController extends Controller
      */
     public function destroy($id)
     {
-        $konfirmasi = Konfirmasi::find($id);
+        $konfirmasi = Confirm::find($id);
 
         if (!$konfirmasi) {
             return response()->json([
