@@ -734,7 +734,20 @@
                         "description": "Konfirmasi deleted successfully"
                     },
                     "404": {
+<<<<<<< HEAD
+                        "description": "Konfirmasi tidak ditemukan",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": 404,
+                                    "message": "Konfirmasi tidak ditemukan."
+                                }
+                            }
+                        }
+=======
                         "description": "Konfirmasi not found"
+>>>>>>> 477551634ee114aa9d00c1c4e987e7941f9da8f9
                     }
                 }
             }
