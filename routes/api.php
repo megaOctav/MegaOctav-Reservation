@@ -19,14 +19,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('customers', CustomerController::class);
-Route::apiResource('bookings', BookingController::class);
-Route::apiResource('admins', AdminController::class);
-Route::apiResource('products', ProductController::class);
-Route::apiResource('payments', PaymentController::class);
-Route::apiResource('konfirmasi', KonfirmasiController::class);
-Route::apiResource('users', UserController::class); 
-
 Route::group([], function () {
     // Produk
     Route::get('product', [ProductController::class, 'ListProduct']);
@@ -47,9 +39,4 @@ Route::group([], function () {
     // Konfirmasi
     Route::get('konfirmasi', [KonfirmasiController::class, 'ListKonfirmasi']);
 
-    // User (tambahan)
-    Route::get('user', [UserController::class, 'index']);
-    Route::post('user', [UserController::class, 'store']);
-    Route::put('user/{id}', [UserController::class, 'update']);
-    Route::delete('user/{id}', [UserController::class, 'destroy']);
 });
