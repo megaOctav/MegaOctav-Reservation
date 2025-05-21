@@ -6,37 +6,33 @@ use App\Http\Controllers\API\CustomerController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\KonfirmasiController;
+use App\Http\Controllers\API\FilmController;
+use App\Http\Controllers\API\ScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 
 
-
-//swagger
-use App\Http\Controllers\API\CategoryController;
-
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::group([], function () {
-    // Produk
-    Route::get('product', [ProductController::class, 'ListProduct']);
-    Route::post('product', [ProductController::class, 'store']);
-
-    // Customer
-    Route::get('customer', [CustomerController::class, 'ListCustomer']);
-
-    // Booking
-    Route::get('booking', [BookingController::class, 'ListBooking']);
-
-    // Payment
-    Route::get('payment', [PaymentController::class, 'ListPayment']);
-
-    // Admin
-    Route::get('admin', [AdminController::class, 'ListAdmin']);
-
-    // Konfirmasi
-    Route::get('konfirmasi', [KonfirmasiController::class, 'ListKonfirmasi']);
-
+//film
+Route::prefix('films')->group(function () {
+    Route::get('/', [FilmController::class, 'index']);         // GET semua film
+    Route::get('/{id}', [FilmController::class, 'show']);      // GET film by ID
+    Route::post('/', [FilmController::class, 'store']);        // POST tambah film
+    Route::put('/{id}', [FilmController::class, 'update']);    // PUT update film
+    Route::delete('/{id}', [FilmController::class, 'destroy']); // DELETE film
 });
+
+//Scedules
+Route::prefix('schedules')->group(function () {
+    Route::get('/', [ScheduleController::class, 'index']);         // GET semua schedule
+    Route::get('/{id}', [ScheduleController::class, 'show']);      // GET schedule by ID
+    Route::post('/', [ScheduleController::class, 'store']);        // POST tambah schedule
+    Route::put('/{id}', [ScheduleController::class, 'update']);    // PUT update schedule
+    Route::delete('/{id}', [ScheduleController::class, 'destroy']); // DELETE schedule
+});
+
+

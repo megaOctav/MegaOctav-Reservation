@@ -526,6 +526,184 @@
                 }
             }
         },
+        "/films": {
+            "get": {
+                "tags": [
+                    "Film"
+                ],
+                "summary": "List all films",
+                "operationId": "11a3cd6ea05ca00cbbf1e4eadbcfb0ad",
+                "responses": {
+                    "200": {
+                        "description": "List of films",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Film"
+                ],
+                "summary": "Add a new film",
+                "operationId": "e39004ef3e890f2656092b9e5e1c1b75",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "judul",
+                                    "genre",
+                                    "durasi",
+                                    "sutradara",
+                                    "produksi",
+                                    "deskripsi",
+                                    "tanggal_rilis"
+                                ],
+                                "properties": {
+                                    "judul": {
+                                        "type": "string"
+                                    },
+                                    "genre": {
+                                        "type": "string"
+                                    },
+                                    "durasi": {
+                                        "type": "integer"
+                                    },
+                                    "sutradara": {
+                                        "type": "string"
+                                    },
+                                    "produksi": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "tanggal_rilis": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Film created"
+                    }
+                }
+            }
+        },
+        "/films/{id}": {
+            "get": {
+                "tags": [
+                    "Film"
+                ],
+                "summary": "Get film by ID",
+                "operationId": "b65fefef4f94418153cfac8a3cc2563d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Film data"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Film"
+                ],
+                "summary": "Update film data",
+                "operationId": "a3c230efffe40d6b03e365d02972f7a9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "judul": {
+                                        "type": "string"
+                                    },
+                                    "genre": {
+                                        "type": "string"
+                                    },
+                                    "durasi": {
+                                        "type": "integer"
+                                    },
+                                    "sutradara": {
+                                        "type": "string"
+                                    },
+                                    "produksi": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "tanggal_rilis": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Film updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Film"
+                ],
+                "summary": "Delete a film",
+                "operationId": "c3c42175bee8509a216ae73852b1fe2d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Film deleted"
+                    }
+                }
+            }
+        },
         "/konfirmasi": {
             "get": {
                 "tags": [
@@ -1028,6 +1206,160 @@
                 }
             }
         },
+        "/schedules": {
+            "get": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "List all schedules",
+                "operationId": "5c29d50423d0d6b8699a2135c2fb5fb9",
+                "responses": {
+                    "200": {
+                        "description": "List of schedules"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Create new schedule",
+                "operationId": "7c01405ac6954959e3e88545b2405603",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_film",
+                                    "location_id",
+                                    "playing_date",
+                                    "playing_time"
+                                ],
+                                "properties": {
+                                    "film_id": {
+                                        "type": "integer"
+                                    },
+                                    "location_id": {
+                                        "type": "integer"
+                                    },
+                                    "playing_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "playing_time": {
+                                        "type": "string",
+                                        "format": "time"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Schedule created"
+                    }
+                }
+            }
+        },
+        "/schedules/{id}": {
+            "get": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Get schedule by ID",
+                "operationId": "37e90f6bc49dcc1ff99759cc62146615",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Schedule data"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Update a schedule",
+                "operationId": "856d6d9f76c212ceb91643de33238158",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "film_id": {
+                                        "type": "integer"
+                                    },
+                                    "location_id": {
+                                        "type": "integer"
+                                    },
+                                    "playing_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "playing_time": {
+                                        "type": "string",
+                                        "format": "time"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Schedule updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Delete a schedule",
+                "operationId": "adcce9884f580db32f049a4d1ce6e71e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Schedule deleted"
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -1161,6 +1493,10 @@
             "description": "Customer"
         },
         {
+            "name": "Film",
+            "description": "Film"
+        },
+        {
             "name": "Konfirmasi",
             "description": "Konfirmasi"
         },
@@ -1171,6 +1507,10 @@
         {
             "name": "Product",
             "description": "Product"
+        },
+        {
+            "name": "Schedule",
+            "description": "Schedule"
         }
     ]
 }
