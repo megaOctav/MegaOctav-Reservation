@@ -734,20 +734,7 @@
                         "description": "Konfirmasi deleted successfully"
                     },
                     "404": {
-<<<<<<< HEAD
-                        "description": "Konfirmasi tidak ditemukan",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 404,
-                                    "message": "Konfirmasi tidak ditemukan."
-                                }
-                            }
-                        }
-=======
                         "description": "Konfirmasi not found"
->>>>>>> 477551634ee114aa9d00c1c4e987e7941f9da8f9
                     }
                 }
             }
@@ -1041,6 +1028,174 @@
                 }
             }
         },
+        "/transactions": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get all transactions",
+                "operationId": "ceac716339cb2455648899fac415b98f",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Create transaction",
+                "operationId": "d3a7a8d8ab4eeb1b4fb29af77c0e98f2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_user",
+                                    "schedule_id",
+                                    "payment_method",
+                                    "total_price",
+                                    "payment_date"
+                                ],
+                                "properties": {
+                                    "id_user": {
+                                        "type": "integer"
+                                    },
+                                    "schedule_id": {
+                                        "type": "integer"
+                                    },
+                                    "payment_method": {
+                                        "type": "string"
+                                    },
+                                    "total_price": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "payment_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/transactions/{id}": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get a single transaction",
+                "operationId": "a64a50b3720f06a3a57ca6d76fae5b12",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Update a transaction",
+                "operationId": "456e172c964e6149c8b721e6d735a6b8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_user": {
+                                        "type": "integer"
+                                    },
+                                    "schedule_id": {
+                                        "type": "integer"
+                                    },
+                                    "payment_method": {
+                                        "type": "string"
+                                    },
+                                    "total_price": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "payment_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Delete a transaction",
+                "operationId": "4c4238c89f4357bbeb6e0dce40b7a343",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -1184,6 +1339,10 @@
         {
             "name": "Product",
             "description": "Product"
+        },
+        {
+            "name": "Transactions",
+            "description": "Transactions"
         }
     ]
 }

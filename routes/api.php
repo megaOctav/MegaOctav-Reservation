@@ -9,7 +9,7 @@ use App\Http\Controllers\API\KonfirmasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
-
+use App\Http\Controllers\API\TransactionController;
 
 
 //swagger
@@ -47,9 +47,13 @@ Route::group([], function () {
     // Konfirmasi
     Route::get('konfirmasi', [KonfirmasiController::class, 'ListKonfirmasi']);
 
+    
+
     // User (tambahan)
     Route::get('user', [UserController::class, 'index']);
     Route::post('user', [UserController::class, 'store']);
     Route::put('user/{id}', [UserController::class, 'update']);
     Route::delete('user/{id}', [UserController::class, 'destroy']);
 });
+
+Route::apiResource('transactions', TransactionController::class);
