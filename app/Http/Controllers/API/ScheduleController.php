@@ -5,25 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Throwable;
 
 class ScheduleController extends Controller
 {
-
-    public function render($request, Throwable $exception)
-    {
-        if ($exception instanceof ValidationException) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Validation failed.',
-                'errors' => $exception->errors(),
-            ], 422);
-        }
-
-    return parent::render($request, $exception);
-    }
     /**
      * @OA\Get(
      *     path="/schedules",
@@ -51,7 +35,7 @@ class ScheduleController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"id_film", "location_id", "playing_date", "playing_time"},
+     *             required={"film_id", "location_id", "playing_date", "playing_time"},
      *             @OA\Property(property="film_id", type="integer"),
      *             @OA\Property(property="location_id", type="integer"),
      *             @OA\Property(property="playing_date", type="string", format="date"),
@@ -156,5 +140,4 @@ class ScheduleController extends Controller
         ]);
     }
 
-    
 }

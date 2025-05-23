@@ -10,8 +10,7 @@ return new class extends Migration
     
     {
         Schema::create('films', function (Blueprint $table) {
-            $table->engine = 'InnoDB';   // pastikan engine InnoDB untuk foreign key
-            $table->id();                // bigint unsigned auto-increment
+            $table->id('id_film')->primary();
             $table->string('judul');
             $table->string('genre');
             $table->integer('durasi');
