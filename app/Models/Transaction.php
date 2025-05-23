@@ -9,9 +9,6 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    // Kalau pakai primary key selain "id", tulis di sini
-    protected $primaryKey = 'id_transaction';
-
     // Kalau field timestamps kamu default (`created_at` dan `updated_at`), ini gak perlu diubah
     protected $fillable = [
         'id_user',

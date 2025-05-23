@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API Documentation",
-        "description": "Documentation for the Bookstore API",
+        "title": "MegaOctav API",
+        "description": "Dokumentasi API untuk sistem reservasi MegaOctav",
         "contact": {
             "email": "admin@example.com"
         },
@@ -14,27 +14,24 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000/api",
-            "description": "API Server"
+            "url": "http://localhost:8000",
+            "description": "Local API Server"
         }
     ],
     "paths": {
-        "/admin": {
+        "/films": {
             "get": {
                 "tags": [
-                    "Admin"
+                    "Film"
                 ],
-                "summary": "List of Admins",
-                "description": "Retrieve all admins",
-                "operationId": "listAdmins",
+                "summary": "List all films",
+                "operationId": "11a3cd6ea05ca00cbbf1e4eadbcfb0ad",
                 "responses": {
                     "200": {
-                        "description": "Successful",
+                        "description": "List of films",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
+                                "schema": {}
                             }
                         }
                     }
@@ -42,29 +39,46 @@
             },
             "post": {
                 "tags": [
-                    "Admin"
+                    "Film"
                 ],
-                "summary": "Create a new admin",
-                "operationId": "baa0a820498d0a605cfcac5b8813cc5d",
+                "summary": "Add a new film",
+                "operationId": "e39004ef3e890f2656092b9e5e1c1b75",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "username_adm",
-                                    "email_adm",
-                                    "phone_adm"
+                                    "judul",
+                                    "genre",
+                                    "durasi",
+                                    "sutradara",
+                                    "produksi",
+                                    "deskripsi",
+                                    "tanggal_rilis"
                                 ],
                                 "properties": {
-                                    "username_adm": {
+                                    "judul": {
                                         "type": "string"
                                     },
-                                    "email_adm": {
+                                    "genre": {
                                         "type": "string"
                                     },
-                                    "phone_adm": {
+                                    "durasi": {
+                                        "type": "integer"
+                                    },
+                                    "sutradara": {
                                         "type": "string"
+                                    },
+                                    "produksi": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "tanggal_rilis": {
+                                        "type": "string",
+                                        "format": "date"
                                     }
                                 },
                                 "type": "object"
@@ -74,21 +88,18 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Created"
-                    },
-                    "400": {
-                        "description": "Bad Request"
+                        "description": "Film created"
                     }
                 }
             }
         },
-        "/admin/{id}": {
+        "/films/{id}": {
             "get": {
                 "tags": [
-                    "Admin"
+                    "Film"
                 ],
-                "summary": "Get admin by ID",
-                "operationId": "5c0d8a7360f3967ee917251fc41ee059",
+                "summary": "Get film by ID",
+                "operationId": "b65fefef4f94418153cfac8a3cc2563d",
                 "parameters": [
                     {
                         "name": "id",
@@ -101,19 +112,19 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Film data"
                     },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Not found"
                     }
                 }
             },
             "put": {
                 "tags": [
-                    "Admin"
+                    "Film"
                 ],
-                "summary": "Update an admin",
-                "operationId": "571766f5dc242a84e7ac5c2c939b661f",
+                "summary": "Update film data",
+                "operationId": "a3c230efffe40d6b03e365d02972f7a9",
                 "parameters": [
                     {
                         "name": "id",
@@ -125,19 +136,31 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "username_adm": {
+                                    "judul": {
                                         "type": "string"
                                     },
-                                    "email_adm": {
+                                    "genre": {
                                         "type": "string"
                                     },
-                                    "phone_adm": {
+                                    "durasi": {
+                                        "type": "integer"
+                                    },
+                                    "sutradara": {
                                         "type": "string"
+                                    },
+                                    "produksi": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "tanggal_rilis": {
+                                        "type": "string",
+                                        "format": "date"
                                     }
                                 },
                                 "type": "object"
@@ -147,19 +170,16 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Updated"
-                    },
-                    "404": {
-                        "description": "Not Found"
+                        "description": "Film updated"
                     }
                 }
             },
             "delete": {
                 "tags": [
-                    "Admin"
+                    "Film"
                 ],
-                "summary": "Delete an admin",
-                "operationId": "d6e7f69ef2796ae0cf5934f2b6b4223f",
+                "summary": "Delete a film",
+                "operationId": "c3c42175bee8509a216ae73852b1fe2d",
                 "parameters": [
                     {
                         "name": "id",
@@ -172,73 +192,55 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Deleted"
-                    },
-                    "404": {
-                        "description": "Not Found"
+                        "description": "Film deleted"
                     }
                 }
             }
         },
-        "/booking": {
+        "/schedules": {
             "get": {
                 "tags": [
-                    "Booking"
+                    "Schedule"
                 ],
-                "summary": "List of Bookings",
-                "description": "Retrieve a list of bookings",
-                "operationId": "listBookings",
+                "summary": "List all schedules",
+                "operationId": "5c29d50423d0d6b8699a2135c2fb5fb9",
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 200,
-                                    "message": "Bookings retrieved successfully.",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "id_customer": 101,
-                                            "booking_date": "2025-04-30",
-                                            "status": "confirmed",
-                                            "created_at": "2025-04-30T08:00:00Z",
-                                            "updated_at": "2025-04-30T08:00:00Z"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
+                        "description": "List of schedules"
                     }
                 }
             },
             "post": {
                 "tags": [
-                    "Booking"
+                    "Schedule"
                 ],
-                "summary": "Create a new booking",
-                "operationId": "dca7cbcf46cb0620d642fc6564252b98",
+                "summary": "Create new schedule",
+                "operationId": "7c01405ac6954959e3e88545b2405603",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "id_customer",
-                                    "booking_date",
-                                    "status"
+                                    "id_film",
+                                    "location_id",
+                                    "playing_date",
+                                    "playing_time"
                                 ],
                                 "properties": {
-                                    "id_customer": {
+                                    "film_id": {
                                         "type": "integer"
                                     },
-                                    "booking_date": {
+                                    "location_id": {
+                                        "type": "integer"
+                                    },
+                                    "playing_date": {
                                         "type": "string",
                                         "format": "date"
                                     },
-                                    "status": {
-                                        "type": "string"
+                                    "playing_time": {
+                                        "type": "string",
+                                        "format": "time"
                                     }
                                 },
                                 "type": "object"
@@ -248,18 +250,43 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Booking created successfully"
+                        "description": "Schedule created"
                     }
                 }
             }
         },
-        "/booking/{id}": {
+        "/schedules/{id}": {
+            "get": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Get schedule by ID",
+                "operationId": "37e90f6bc49dcc1ff99759cc62146615",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Schedule data"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
             "put": {
                 "tags": [
-                    "Booking"
+                    "Schedule"
                 ],
-                "summary": "Update a booking",
-                "operationId": "7c2a8beb2b290a0749ae2ddc2e402658",
+                "summary": "Update a schedule",
+                "operationId": "856d6d9f76c212ceb91643de33238158",
                 "parameters": [
                     {
                         "name": "id",
@@ -271,20 +298,23 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "id_customer": {
+                                    "film_id": {
                                         "type": "integer"
                                     },
-                                    "booking_date": {
+                                    "location_id": {
+                                        "type": "integer"
+                                    },
+                                    "playing_date": {
                                         "type": "string",
                                         "format": "date"
                                     },
-                                    "status": {
-                                        "type": "string"
+                                    "playing_time": {
+                                        "type": "string",
+                                        "format": "time"
                                     }
                                 },
                                 "type": "object"
@@ -294,16 +324,16 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Booking updated successfully"
+                        "description": "Schedule updated"
                     }
                 }
             },
             "delete": {
                 "tags": [
-                    "Booking"
+                    "Schedule"
                 ],
-                "summary": "Delete a booking",
-                "operationId": "11aaee3099878ef7faf9f688e1b137ca",
+                "summary": "Delete a schedule",
+                "operationId": "adcce9884f580db32f049a4d1ce6e71e",
                 "parameters": [
                     {
                         "name": "id",
@@ -316,728 +346,60 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Booking deleted successfully"
+                        "description": "Schedule deleted"
                     }
                 }
             }
         },
-        "/customers": {
+        "/api/transactions": {
             "get": {
                 "tags": [
-                    "Customer"
+                    "Transactions"
                 ],
-                "summary": "List of Customers",
-                "description": "Retrieve a list of all customers",
-                "operationId": "listCustomers",
+                "summary": "Ambil semua transaksi",
+                "operationId": "5effd5c228c8c92f09b136d74aacab83",
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "success": true,
-                                    "message": "Successfully retrieved customers",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "name": "John Doe",
-                                            "email": "john@example.com",
-                                            "phone": "08123456789",
-                                            "address": "Jl. Merdeka No.1",
-                                            "created_at": "2025-04-30T10:00:00Z",
-                                            "updated_at": "2025-04-30T10:00:00Z"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Customer"
-                ],
-                "summary": "Create a new customer",
-                "operationId": "e7208b4c24c636850e6e9fe5b4b17ddc",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "email",
-                                    "phone",
-                                    "address"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    },
-                                    "phone": {
-                                        "type": "string"
-                                    },
-                                    "address": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Customer created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 201,
-                                    "message": "Customer created successfully.",
-                                    "data": []
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/customer/{id}": {
-            "get": {
-                "tags": [
-                    "Customer"
-                ],
-                "summary": "Get admin by ID",
-                "operationId": "326599a5241bfc8ed73e873376027868",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    }
-                }
-            }
-        },
-        "/customers/{id}": {
-            "put": {
-                "tags": [
-                    "Customer"
-                ],
-                "summary": "Update a customer",
-                "operationId": "32503c5afb8a91e8edeb1bc22a5eef88",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email"
-                                    },
-                                    "phone": {
-                                        "type": "string"
-                                    },
-                                    "address": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Customer updated successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 200,
-                                    "message": "Customer updated successfully.",
-                                    "data": []
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Customer"
-                ],
-                "summary": "Delete a customer",
-                "operationId": "908f0009936be5c598accf67add60e64",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Customer deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "status": 200,
-                                    "message": "Customer deleted successfully."
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/konfirmasi": {
-            "get": {
-                "tags": [
-                    "Konfirmasi"
-                ],
-                "summary": "List of Konfirmasi",
-                "description": "Retrieve all konfirmasi records",
-                "operationId": "45bf9c676f1ff80d0d877348e03b65bf",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
+                        "description": "Berhasil mengambil daftar transaksi",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "integer",
-                                            "example": 200
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Konfirmasi retrieved successfully."
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "id_booking": {
-                                                        "type": "integer",
-                                                        "example": 101
-                                                    },
-                                                    "payment_method": {
-                                                        "type": "string",
-                                                        "example": "credit card"
-                                                    },
-                                                    "payment_status": {
-                                                        "type": "string",
-                                                        "example": "paid"
-                                                    },
-                                                    "total_payment": {
-                                                        "type": "number",
-                                                        "format": "float",
-                                                        "example": 500
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "format": "date-time"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "format": "date-time"
-                                                    }
-                                                },
-                                                "type": "object"
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            },
+                                            "id_user": {
+                                                "type": "integer"
+                                            },
+                                            "schedule_id": {
+                                                "type": "integer"
+                                            },
+                                            "payment_method": {
+                                                "type": "string"
+                                            },
+                                            "total_price": {
+                                                "type": "number"
+                                            },
+                                            "payment_date": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time"
                                             }
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Konfirmasi"
-                ],
-                "summary": "Create a new konfirmasi",
-                "operationId": "78a6d31e7b391593c6ce8859564f96ea",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "id_booking",
-                                    "payment_method",
-                                    "payment_status",
-                                    "total_payment"
-                                ],
-                                "properties": {
-                                    "id_booking": {
-                                        "type": "integer",
-                                        "example": 101
-                                    },
-                                    "payment_method": {
-                                        "type": "string",
-                                        "example": "credit card"
-                                    },
-                                    "payment_status": {
-                                        "type": "string",
-                                        "example": "paid"
-                                    },
-                                    "total_payment": {
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 500
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Konfirmasi created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "integer",
-                                            "example": 201
                                         },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Konfirmasi created successfully."
-                                        },
-                                        "data": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
+                                        "type": "object"
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-            }
-        },
-        "/konfirmasi/{id}": {
-            "put": {
-                "tags": [
-                    "Konfirmasi"
-                ],
-                "summary": "Update konfirmasi",
-                "operationId": "45c93f81d52a87e58689bc802f299e7e",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "payment_method": {
-                                        "type": "string",
-                                        "example": "credit card"
-                                    },
-                                    "payment_status": {
-                                        "type": "string",
-                                        "example": "paid"
-                                    },
-                                    "total_payment": {
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 500
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Konfirmasi updated successfully"
-                    },
-                    "404": {
-                        "description": "Konfirmasi not found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Konfirmasi"
-                ],
-                "summary": "Delete konfirmasi",
-                "operationId": "3cb3dea6c577d0f375117452fcde9bd3",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Konfirmasi deleted successfully"
-                    },
-                    "404": {
-                        "description": "Konfirmasi not found"
-                    }
-                }
-            }
-        },
-        "/payments": {
-            "get": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "List of Payments",
-                "description": "Retrieve a list of all payments",
-                "operationId": "listPayments",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "success": true,
-                                    "message": "Successfully retrieved payments",
-                                    "data": []
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "Create a new payment",
-                "operationId": "createPayment",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "amount",
-                                    "payment_date",
-                                    "method",
-                                    "customer_id"
-                                ],
-                                "properties": {
-                                    "amount": {
-                                        "type": "number",
-                                        "example": 150000
-                                    },
-                                    "payment_date": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2025-04-30T10:00:00Z"
-                                    },
-                                    "method": {
-                                        "type": "string",
-                                        "example": "Gopay"
-                                    },
-                                    "customer_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Product created"
-                    }
-                }
-            }
-        },
-        "/payments/{id}": {
-            "put": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "Update a Payment",
-                "operationId": "updatePayment",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Payment ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "amount",
-                                    "payment_date",
-                                    "method",
-                                    "customer_id"
-                                ],
-                                "properties": {
-                                    "amount": {
-                                        "type": "number",
-                                        "example": 150000
-                                    },
-                                    "payment_date": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2025-04-30T10:00:00Z"
-                                    },
-                                    "method": {
-                                        "type": "string",
-                                        "example": "Transfer Bank"
-                                    },
-                                    "customer_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Payment updated successfully"
-                    },
-                    "404": {
-                        "description": "Payment not found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "Delete a Payment",
-                "operationId": "deletePayment",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Payment ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Payment deleted successfully"
-                    },
-                    "404": {
-                        "description": "Payment not found"
-                    }
-                }
-            }
-        },
-        "/products": {
-            "get": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "List of Products",
-                "description": "Retrieve a list of all products",
-                "operationId": "listProducts",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Create a new product",
-                "operationId": "createProduct",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "price",
-                                    "stock",
-                                    "description"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "price": {
-                                        "type": "number",
-                                        "format": "float"
-                                    },
-                                    "stock": {
-                                        "type": "integer"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Product created"
-                    }
-                }
-            }
-        },
-        "/products/{id}": {
-            "put": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Update a product",
-                "operationId": "updateProduct",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "price": {
-                                        "type": "number"
-                                    },
-                                    "stock": {
-                                        "type": "integer"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Product updated"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Delete a product",
-                "operationId": "deleteProduct",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Product deleted"
-                    }
-                }
-            }
-        },
-        "/transactions": {
-            "get": {
-                "tags": [
-                    "Transactions"
-                ],
-                "summary": "Get all transactions",
-                "operationId": "ceac716339cb2455648899fac415b98f",
-                "responses": {
-                    "200": {
-                        "description": "Success"
                     }
                 }
             },
@@ -1045,8 +407,8 @@
                 "tags": [
                     "Transactions"
                 ],
-                "summary": "Create transaction",
-                "operationId": "d3a7a8d8ab4eeb1b4fb29af77c0e98f2",
+                "summary": "Buat transaksi baru",
+                "operationId": "f5614e1a4ee60e20e9c82334e2c7e5be",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1061,21 +423,25 @@
                                 ],
                                 "properties": {
                                     "id_user": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "schedule_id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 2
                                     },
                                     "payment_method": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "gopay"
                                     },
                                     "total_price": {
                                         "type": "number",
-                                        "format": "float"
+                                        "example": 100000
                                     },
                                     "payment_date": {
                                         "type": "string",
-                                        "format": "date"
+                                        "format": "date",
+                                        "example": "2025-05-21"
                                     }
                                 },
                                 "type": "object"
@@ -1085,18 +451,65 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Transaksi berhasil dibuat",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 5
+                                        },
+                                        "id_user": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "schedule_id": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "payment_method": {
+                                            "type": "string",
+                                            "example": "gopay"
+                                        },
+                                        "total_price": {
+                                            "type": "number",
+                                            "example": 100000
+                                        },
+                                        "payment_date": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2025-05-21"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-05-22T10:00:00Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-05-22T10:00:00Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
                     }
                 }
             }
         },
-        "/transactions/{id}": {
+        "/api/transactions/{id}": {
             "get": {
                 "tags": [
                     "Transactions"
                 ],
-                "summary": "Get a single transaction",
-                "operationId": "a64a50b3720f06a3a57ca6d76fae5b12",
+                "summary": "Lihat transaksi berdasarkan ID",
+                "operationId": "70ab76f4625c98ff68e6a91150dbf682",
                 "parameters": [
                     {
                         "name": "id",
@@ -1109,10 +522,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Detail transaksi"
                     },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Transaksi tidak ditemukan"
                     }
                 }
             },
@@ -1120,8 +533,8 @@
                 "tags": [
                     "Transactions"
                 ],
-                "summary": "Update a transaction",
-                "operationId": "456e172c964e6149c8b721e6d735a6b8",
+                "summary": "Update transaksi",
+                "operationId": "01a62aaa8c47a7066fd238eea6401873",
                 "parameters": [
                     {
                         "name": "id",
@@ -1138,22 +551,18 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "id_user": {
-                                        "type": "integer"
-                                    },
-                                    "schedule_id": {
-                                        "type": "integer"
-                                    },
                                     "payment_method": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "qris"
                                     },
                                     "total_price": {
                                         "type": "number",
-                                        "format": "float"
+                                        "example": 120000
                                     },
                                     "payment_date": {
                                         "type": "string",
-                                        "format": "date"
+                                        "format": "date",
+                                        "example": "2025-05-22"
                                     }
                                 },
                                 "type": "object"
@@ -1163,10 +572,10 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Updated"
+                        "description": "Transaksi berhasil diupdate"
                     },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Transaksi tidak ditemukan"
                     }
                 }
             },
@@ -1174,8 +583,8 @@
                 "tags": [
                     "Transactions"
                 ],
-                "summary": "Delete a transaction",
-                "operationId": "4c4238c89f4357bbeb6e0dce40b7a343",
+                "summary": "Hapus transaksi",
+                "operationId": "9b17c316f838159e7f0a130470b0f58d",
                 "parameters": [
                     {
                         "name": "id",
@@ -1188,10 +597,10 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": "Deleted"
+                        "description": "Transaksi berhasil dihapus"
                     },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Transaksi tidak ditemukan"
                     }
                 }
             }
@@ -1313,36 +722,20 @@
     },
     "tags": [
         {
+            "name": "Transactions",
+            "description": "API untuk mengelola transaksi"
+        },
+        {
             "name": "User",
             "description": "API untuk operasi data user"
         },
         {
-            "name": "Admin",
-            "description": "Admin"
+            "name": "Film",
+            "description": "Film"
         },
         {
-            "name": "Booking",
-            "description": "Booking"
-        },
-        {
-            "name": "Customer",
-            "description": "Customer"
-        },
-        {
-            "name": "Konfirmasi",
-            "description": "Konfirmasi"
-        },
-        {
-            "name": "Payment",
-            "description": "Payment"
-        },
-        {
-            "name": "Product",
-            "description": "Product"
-        },
-        {
-            "name": "Transactions",
-            "description": "Transactions"
+            "name": "Schedule",
+            "description": "Schedule"
         }
     ]
 }

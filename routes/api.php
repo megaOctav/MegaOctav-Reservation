@@ -1,59 +1,39 @@
 <?php
-
-use App\Http\Controllers\API\AdminController;
-use App\Http\Controllers\API\BookingController;
-use App\Http\Controllers\API\CustomerController;
-use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\PaymentController;
-use App\Http\Controllers\API\KonfirmasiController;
+use App\Http\Controllers\API\FilmController;
+use App\Http\Controllers\API\ScheduleController;
+use App\Http\Controllers\API\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\API\TransactionController;
 
-
-//swagger
-use App\Http\Controllers\API\CategoryController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('customers', CustomerController::class);
-Route::apiResource('bookings', BookingController::class);
-Route::apiResource('admins', AdminController::class);
-Route::apiResource('products', ProductController::class);
-Route::apiResource('payments', PaymentController::class);
-Route::apiResource('konfirmasi', KonfirmasiController::class);
-Route::apiResource('users', UserController::class); 
-
-Route::group([], function () {
-    // Produk
-    Route::get('product', [ProductController::class, 'ListProduct']);
-    Route::post('product', [ProductController::class, 'store']);
-
-    // Customer
-    Route::get('customer', [CustomerController::class, 'ListCustomer']);
-
-    // Booking
-    Route::get('booking', [BookingController::class, 'ListBooking']);
-
-    // Payment
-    Route::get('payment', [PaymentController::class, 'ListPayment']);
-
-    // Admin
-    Route::get('admin', [AdminController::class, 'ListAdmin']);
-
-    // Konfirmasi
-    Route::get('konfirmasi', [KonfirmasiController::class, 'ListKonfirmasi']);
-
-    
-
-    // User (tambahan)
-    Route::get('user', [UserController::class, 'index']);
-    Route::post('user', [UserController::class, 'store']);
-    Route::put('user/{id}', [UserController::class, 'update']);
-    Route::delete('user/{id}', [UserController::class, 'destroy']);
+//film
+Route::prefix('films')->group(function () {
+    Route::get('/', [FilmController::class, 'index']);         // GET semua film
+    Route::get('/{id}', [FilmController::class, 'show']);      // GET film by ID
+    Route::post('/', [FilmController::class, 'store']);        // POST tambah film
+    Route::put('/{id}', [FilmController::class, 'update']);    // PUT update film
+    Route::delete('/{id}', [FilmController::class, 'destroy']); // DELETE film
 });
 
-Route::apiResource('transactions', TransactionController::class);
+//Scedules
+Route::prefix('schedules')->group(function () {
+    Route::get('/', [ScheduleController::class, 'index']);         // GET semua schedule
+    Route::get('/{id}', [ScheduleController::class, 'show']);      // GET schedule by ID
+    Route::post('/', [ScheduleController::class, 'store']);        // POST tambah schedule
+    Route::put('/{id}', [ScheduleController::class, 'update']);    // PUT update schedule
+    Route::delete('/{id}', [ScheduleController::class, 'destroy']); // DELETE schedule
+});
+
+//Transaction
+Route::prefix('transactions')->group(function () {
+    Route::get('/', [TransactionController::class, 'index']);         // GET semua schedule
+    Route::get('/{id}', [TransactionController::class, 'show']);      // GET schedule by ID
+    Route::post('/', [TransactionController::class, 'store']);        // POST tambah schedule
+    Route::put('/{id}', [TransactionController::class, 'update']);    // PUT update schedule
+    Route::delete('/{id}', [TransactionController::class, 'destroy']); // DELETE schedule
+});
