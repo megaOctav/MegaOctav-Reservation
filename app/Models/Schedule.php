@@ -11,7 +11,7 @@ class Schedule extends Model
     protected $primaryKey = 'schedule_id';
 
     protected $fillable = [
-        'film_id',
+        'id_film',
         'location_id',
         'playing_data',
         'playing_time'
@@ -19,6 +19,6 @@ class Schedule extends Model
 
     public function film()
     {
-        return $this->belongsTo(Film::class, 'film_id', 'id_film');
+        return $this->belongsTo(Film::class, 'id_film', 'id_film');
     }
 }
