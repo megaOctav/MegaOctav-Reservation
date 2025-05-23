@@ -1,11 +1,4 @@
 <?php
-
-use App\Http\Controllers\API\AdminController;
-use App\Http\Controllers\API\BookingController;
-use App\Http\Controllers\API\CustomerController;
-use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\PaymentController;
-use App\Http\Controllers\API\KonfirmasiController;
 use App\Http\Controllers\API\FilmController;
 use App\Http\Controllers\API\ScheduleController;
 use Illuminate\Http\Request;

@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Seat extends Model
+class Seats extends Model
 {
-    protected $primaryKey = 'id_seats';
+    //
+     protected $primaryKey = 'id_seats';
 
     protected $fillable = [
         'schedule_id',

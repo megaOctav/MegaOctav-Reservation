@@ -496,6 +496,157 @@
                 }
             }
         },
+        "/seats": {
+            "get": {
+                "tags": [
+                    "Seats"
+                ],
+                "summary": "List all seats",
+                "operationId": "6b85385bc255ed095b4f7403c208b752",
+                "responses": {
+                    "200": {
+                        "description": "List of seats"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Seats"
+                ],
+                "summary": "Create new seat",
+                "operationId": "c1da66ed128798a203d7cf9957ef7e36",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "schedule_id",
+                                    "number",
+                                    "status_seats"
+                                ],
+                                "properties": {
+                                    "schedule_id": {
+                                        "type": "integer"
+                                    },
+                                    "number": {
+                                        "type": "string"
+                                    },
+                                    "status_seats": {
+                                        "type": "string",
+                                        "enum": [
+                                            "available",
+                                            "booked"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Seat created"
+                    }
+                }
+            }
+        },
+        "/seats/{id}": {
+            "get": {
+                "tags": [
+                    "Seats"
+                ],
+                "summary": "Get seat by ID",
+                "operationId": "9e46d09f564c08ab96bd419b0dc1ee3f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Seat found"
+                    },
+                    "404": {
+                        "description": "Seat not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Seats"
+                ],
+                "summary": "Update a seat",
+                "operationId": "389de4043141c5b6aac8de6848819c81",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "schedule_id": {
+                                        "type": "integer"
+                                    },
+                                    "number": {
+                                        "type": "string"
+                                    },
+                                    "status_seats": {
+                                        "type": "string",
+                                        "enum": [
+                                            "available",
+                                            "booked"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Seat updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Seats"
+                ],
+                "summary": "Delete a seat",
+                "operationId": "b78f06764fb1f63d6f1db12154b5d488",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Seat deleted"
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -627,6 +778,10 @@
         {
             "name": "Schedule",
             "description": "Schedule"
+        },
+        {
+            "name": "Seats",
+            "description": "Seats"
         }
     ]
 }
