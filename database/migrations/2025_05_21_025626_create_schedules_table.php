@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id('schedule_id');
-            $table->unsignedBigInteger('id_film');
+            $table->unsignedBigInteger('film_id');
             $table->integer('location_id');
             $table->date('playing_data');
             $table->time('playing_time');
             $table->timestamps();
 
-             $table->foreign('id_film')->references('id_film')->on('films')->onDelete('cascade');
+            $table->foreign('film_id')->references('id_film')->on('films')->onDelete('cascade');
         });
     }
 

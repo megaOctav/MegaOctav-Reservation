@@ -197,424 +197,45 @@
                 }
             }
         },
-        "/konfirmasi": {
+        "/prices": {
             "get": {
                 "tags": [
-                    "Konfirmasi"
+                    "Price"
                 ],
-                "summary": "List of Konfirmasi",
-                "description": "Retrieve all konfirmasi records",
-                "operationId": "45bf9c676f1ff80d0d877348e03b65bf",
+                "summary": "List all prices",
+                "operationId": "ac15b3cf22a09d49a1b3e2421bb1c018",
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "integer",
-                                            "example": 200
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Konfirmasi retrieved successfully."
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "id_booking": {
-                                                        "type": "integer",
-                                                        "example": 101
-                                                    },
-                                                    "payment_method": {
-                                                        "type": "string",
-                                                        "example": "credit card"
-                                                    },
-                                                    "payment_status": {
-                                                        "type": "string",
-                                                        "example": "paid"
-                                                    },
-                                                    "total_payment": {
-                                                        "type": "number",
-                                                        "format": "float",
-                                                        "example": 500
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "format": "date-time"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "format": "date-time"
-                                                    }
-                                                },
-                                                "type": "object"
-                                            }
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
+                        "description": "List of prices"
                     }
                 }
             },
             "post": {
                 "tags": [
-                    "Konfirmasi"
+                    "Price"
                 ],
-                "summary": "Create a new konfirmasi",
-                "operationId": "78a6d31e7b391593c6ce8859564f96ea",
+                "summary": "Create new price",
+                "operationId": "69d4227e171a24fbd821691d3f0e15b2",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "id_booking",
-                                    "payment_method",
-                                    "payment_status",
-                                    "total_payment"
+                                    "film_id",
+                                    "day_type",
+                                    "ticket_price"
                                 ],
                                 "properties": {
-                                    "id_booking": {
-                                        "type": "integer",
-                                        "example": 101
+                                    "film_id": {
+                                        "type": "integer"
                                     },
-                                    "payment_method": {
-                                        "type": "string",
-                                        "example": "credit card"
-                                    },
-                                    "payment_status": {
-                                        "type": "string",
-                                        "example": "paid"
-                                    },
-                                    "total_payment": {
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 500
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Konfirmasi created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "integer",
-                                            "example": 201
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Konfirmasi created successfully."
-                                        },
-                                        "data": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/konfirmasi/{id}": {
-            "put": {
-                "tags": [
-                    "Konfirmasi"
-                ],
-                "summary": "Update konfirmasi",
-                "operationId": "45c93f81d52a87e58689bc802f299e7e",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "payment_method": {
-                                        "type": "string",
-                                        "example": "credit card"
-                                    },
-                                    "payment_status": {
-                                        "type": "string",
-                                        "example": "paid"
-                                    },
-                                    "total_payment": {
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 500
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Konfirmasi updated successfully"
-                    },
-                    "404": {
-                        "description": "Konfirmasi not found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Konfirmasi"
-                ],
-                "summary": "Delete konfirmasi",
-                "operationId": "3cb3dea6c577d0f375117452fcde9bd3",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Konfirmasi deleted successfully"
-                    },
-                    "404": {
-                        "description": "Konfirmasi not found"
-                    }
-                }
-            }
-        },
-        "/payments": {
-            "get": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "List of Payments",
-                "description": "Retrieve a list of all payments",
-                "operationId": "listPayments",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "success": true,
-                                    "message": "Successfully retrieved payments",
-                                    "data": []
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "Create a new payment",
-                "operationId": "createPayment",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "amount",
-                                    "payment_date",
-                                    "method",
-                                    "customer_id"
-                                ],
-                                "properties": {
-                                    "amount": {
-                                        "type": "number",
-                                        "example": 150000
-                                    },
-                                    "payment_date": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2025-04-30T10:00:00Z"
-                                    },
-                                    "method": {
-                                        "type": "string",
-                                        "example": "Gopay"
-                                    },
-                                    "customer_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Product created"
-                    }
-                }
-            }
-        },
-        "/payments/{id}": {
-            "put": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "Update a Payment",
-                "operationId": "updatePayment",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Payment ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "amount",
-                                    "payment_date",
-                                    "method",
-                                    "customer_id"
-                                ],
-                                "properties": {
-                                    "amount": {
-                                        "type": "number",
-                                        "example": 150000
-                                    },
-                                    "payment_date": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2025-04-30T10:00:00Z"
-                                    },
-                                    "method": {
-                                        "type": "string",
-                                        "example": "Transfer Bank"
-                                    },
-                                    "customer_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Payment updated successfully"
-                    },
-                    "404": {
-                        "description": "Payment not found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Payment"
-                ],
-                "summary": "Delete a Payment",
-                "operationId": "deletePayment",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Payment ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Payment deleted successfully"
-                    },
-                    "404": {
-                        "description": "Payment not found"
-                    }
-                }
-            }
-        },
-        "/products": {
-            "get": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "List of Products",
-                "description": "Retrieve a list of all products",
-                "operationId": "listProducts",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Create a new product",
-                "operationId": "createProduct",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "price",
-                                    "stock",
-                                    "description"
-                                ],
-                                "properties": {
-                                    "name": {
+                                    "day_type": {
                                         "type": "string"
                                     },
-                                    "price": {
+                                    "ticket_price": {
                                         "type": "number",
                                         "format": "float"
-                                    },
-                                    "stock": {
-                                        "type": "integer"
-                                    },
-                                    "description": {
-                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -624,18 +245,43 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Product created"
+                        "description": "Price created"
                     }
                 }
             }
         },
-        "/products/{id}": {
+        "/prices/{id}": {
+            "get": {
+                "tags": [
+                    "Price"
+                ],
+                "summary": "Get price by ID",
+                "operationId": "b5545ab4d7e407a2c98de41415844f2b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Price data"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
             "put": {
                 "tags": [
-                    "Product"
+                    "Price"
                 ],
-                "summary": "Update a product",
-                "operationId": "updateProduct",
+                "summary": "Update a price",
+                "operationId": "e61f97ed79ff05b25a69c97b8d66c451",
                 "parameters": [
                     {
                         "name": "id",
@@ -647,22 +293,19 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "price": {
-                                        "type": "number"
-                                    },
-                                    "stock": {
+                                    "film_id": {
                                         "type": "integer"
                                     },
-                                    "description": {
+                                    "day_type": {
                                         "type": "string"
+                                    },
+                                    "ticket_price": {
+                                        "type": "number",
+                                        "format": "float"
                                     }
                                 },
                                 "type": "object"
@@ -672,16 +315,16 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Product updated"
+                        "description": "Price updated"
                     }
                 }
             },
             "delete": {
                 "tags": [
-                    "Product"
+                    "Price"
                 ],
-                "summary": "Delete a product",
-                "operationId": "deleteProduct",
+                "summary": "Delete a price",
+                "operationId": "fe12cc2ea2a8661f5e4fc81e01947afb",
                 "parameters": [
                     {
                         "name": "id",
@@ -694,12 +337,166 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Product deleted"
+                        "description": "Price deleted"
                     }
                 }
             }
         },
         "/schedules": {
+            "get": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "List all schedules",
+                "operationId": "5c29d50423d0d6b8699a2135c2fb5fb9",
+                "responses": {
+                    "200": {
+                        "description": "List of schedules"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Create new schedule",
+                "operationId": "7c01405ac6954959e3e88545b2405603",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "film_id",
+                                    "location_id",
+                                    "playing_date",
+                                    "playing_time"
+                                ],
+                                "properties": {
+                                    "film_id": {
+                                        "type": "integer"
+                                    },
+                                    "location_id": {
+                                        "type": "integer"
+                                    },
+                                    "playing_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "playing_time": {
+                                        "type": "string",
+                                        "format": "time"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Schedule created"
+                    }
+                }
+            }
+        },
+        "/schedules/{id}": {
+            "get": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Get schedule by ID",
+                "operationId": "37e90f6bc49dcc1ff99759cc62146615",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Schedule data"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Update a schedule",
+                "operationId": "856d6d9f76c212ceb91643de33238158",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "film_id": {
+                                        "type": "integer"
+                                    },
+                                    "location_id": {
+                                        "type": "integer"
+                                    },
+                                    "playing_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "playing_time": {
+                                        "type": "string",
+                                        "format": "time"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Schedule updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "Delete a schedule",
+                "operationId": "adcce9884f580db32f049a4d1ce6e71e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Schedule deleted"
+                    }
+                }
+            }
+        },
+        "/seats": {
             "get": {
                 "tags": [
                     "Seats"
@@ -729,7 +526,7 @@
                                     "status_seats"
                                 ],
                                 "properties": {
-                                    "film_id": {
+                                    "schedule_id": {
                                         "type": "integer"
                                     },
                                     "number": {
@@ -802,7 +599,7 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "film_id": {
+                                    "schedule_id": {
                                         "type": "integer"
                                     },
                                     "number": {
@@ -975,16 +772,8 @@
             "description": "Film"
         },
         {
-            "name": "Konfirmasi",
-            "description": "Konfirmasi"
-        },
-        {
-            "name": "Payment",
-            "description": "Payment"
-        },
-        {
-            "name": "Product",
-            "description": "Product"
+            "name": "Price",
+            "description": "Price"
         },
         {
             "name": "Schedule",

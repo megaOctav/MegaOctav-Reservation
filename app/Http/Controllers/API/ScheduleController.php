@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
-use Throwable;
 
 class ScheduleController extends Controller
 {
@@ -36,8 +35,8 @@ class ScheduleController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"id_film", "location_id", "playing_date", "playing_time"},
-     *             @OA\Property(property="id_film", type="integer"),
+     *             required={"film_id", "location_id", "playing_date", "playing_time"},
+     *             @OA\Property(property="film_id", type="integer"),
      *             @OA\Property(property="location_id", type="integer"),
      *             @OA\Property(property="playing_date", type="string", format="date"),
      *             @OA\Property(property="playing_time", type="string", format="time")
@@ -49,7 +48,7 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_film' => 'required|exists:films,id_film',
+            'film_id' => 'required|exists:films,id_film',
             'location_id' => 'required|integer',
             'playing_date' => 'required|date',
             'playing_time' => 'required|date_format:H:i:s',
@@ -92,7 +91,7 @@ class ScheduleController extends Controller
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\RequestBody(
      *         @OA\JsonContent(
-     *             @OA\Property(property="id_film", type="integer"),
+     *             @OA\Property(property="film_id", type="integer"),
      *             @OA\Property(property="location_id", type="integer"),
      *             @OA\Property(property="playing_date", type="string", format="date"),
      *             @OA\Property(property="playing_time", type="string", format="time")
@@ -106,7 +105,7 @@ class ScheduleController extends Controller
         $schedule = Schedule::findOrFail($id);
 
         $validated = $request->validate([
-            'id_film' => 'required|exists:films,id_film',
+            'film_id' => 'required|exists:films,id_film',
             'location_id' => 'required|integer',
             'playing_date' => 'required|date',
             'playing_time' => 'required|date_format:H:i:s',

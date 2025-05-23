@@ -1,11 +1,12 @@
 <?php
-use App\Http\Controllers\API\FilmController;
-use App\Http\Controllers\API\ScheduleController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\SeatsController;
 use App\Http\Controllers\API\PriceController;
+use App\Http\Controllers\API\FilmController;
+use App\Http\Controllers\API\ScheduleController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
