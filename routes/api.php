@@ -35,4 +35,13 @@ Route::prefix('schedules')->group(function () {
     Route::delete('/{id}', [ScheduleController::class, 'destroy']); // DELETE schedule
 });
 
+// Prices
+Route::prefix('prices')->group(function () {
+    Route::get('/', [\App\Http\Controllers\API\PriceController::class, 'index']);         // GET semua price
+    Route::get('/{id}', [\App\Http\Controllers\API\PriceController::class, 'show']);      // GET price by ID
+    Route::post('/', [\App\Http\Controllers\API\PriceController::class, 'store']);        // POST tambah price
+    Route::put('/{id}', [\App\Http\Controllers\API\PriceController::class, 'update']);    // PUT update price
+    Route::delete('/{id}', [\App\Http\Controllers\API\PriceController::class, 'destroy']); // DELETE price
+});
+
 
