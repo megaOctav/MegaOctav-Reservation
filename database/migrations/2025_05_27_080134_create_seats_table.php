@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign key ke tabel schedules
-            $table->foreign('schedule_id')->references('schedule_id')->on('schedules')->onDelete('cascade');
+            $table->foreign('schedule_id')->references('id_schedule')->on('schedules')->onDelete('cascade');
         });
     }
 

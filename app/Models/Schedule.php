@@ -8,7 +8,7 @@ use Hasfactory;
 class Schedule extends Model
 {
     //
-    protected $primaryKey = 'schedule_id';
+    protected $primaryKey = 'id_schedule';
 
     protected $fillable = [
         'id_film',
@@ -19,6 +19,10 @@ class Schedule extends Model
 
     public function film()
     {
-        return $this->belongsTo(Film::class, 'id_film', 'id_film');
+        return $this->belongsTo(Film::class, 'film_id', 'id_film');
+    }
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'location_id', 'id_location');
     }
 }

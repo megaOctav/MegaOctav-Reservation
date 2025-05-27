@@ -40,14 +40,12 @@ class FilmController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"judul", "genre", "durasi", "sutradara", "produksi", "deskripsi", "tanggal_rilis"},
-     *             @OA\Property(property="judul", type="string"),
+     *             required={"film_title", "synopsis", "genre", "duration", "rating_film"},
+     *             @OA\Property(property="film_title", type="string"),
+     *             @OA\Property(property="synopsis", type="string"),
      *             @OA\Property(property="genre", type="string"),
-     *             @OA\Property(property="durasi", type="integer"),
-     *             @OA\Property(property="sutradara", type="string"),
-     *             @OA\Property(property="produksi", type="string"),
-     *             @OA\Property(property="deskripsi", type="string"),
-     *             @OA\Property(property="tanggal_rilis", type="string", format="date")
+     *             @OA\Property(property="duration", type="integer"),
+     *             @OA\Property(property="rating_film", type="integer")
      *         )
      *     ),
      *     @OA\Response(
@@ -59,13 +57,11 @@ class FilmController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'judul' => 'required|string',
+            'film_title' => 'required|string',
+            'synopsis' => 'required|string',
             'genre' => 'required|string',
-            'durasi' => 'required|integer',
-            'sutradara' => 'required|string',
-            'produksi' => 'required|string',
-            'deskripsi' => 'required|string',
-            'tanggal_rilis' => 'required|date',
+            'duration' => 'required|integer',
+            'rating_film' => 'required|integer',
         ]);
 
         $film = Film::create($validated);
@@ -105,13 +101,11 @@ class FilmController extends Controller
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\RequestBody(
      *         @OA\JsonContent(
-     *             @OA\Property(property="judul", type="string"),
+     *             @OA\Property(property="film_title", type="string"),
+     *             @OA\Property(property="synopsis", type="string"),
      *             @OA\Property(property="genre", type="string"),
-     *             @OA\Property(property="durasi", type="integer"),
-     *             @OA\Property(property="sutradara", type="string"),
-     *             @OA\Property(property="produksi", type="string"),
-     *             @OA\Property(property="deskripsi", type="string"),
-     *             @OA\Property(property="tanggal_rilis", type="string", format="date")
+     *             @OA\Property(property="duration", type="integer"),
+     *             @OA\Property(property="rating_film", type="integer")
      *         )
      *     ),
      *     @OA\Response(response=200, description="Film updated")
@@ -122,13 +116,11 @@ class FilmController extends Controller
         $film = Film::findOrFail($id);
 
         $validated = $request->validate([
-            'judul' => 'required|string',
+            'film_title' => 'required|string',
+            'synopsis' => 'required|string',
             'genre' => 'required|string',
-            'durasi' => 'required|integer',
-            'sutradara' => 'required|string',
-            'produksi' => 'required|string',
-            'deskripsi' => 'required|string',
-            'tanggal_rilis' => 'required|date',
+            'duration' => 'required|integer',
+            'rating_film' => 'required|integer'
         ]);
 
         $film->update($validated);

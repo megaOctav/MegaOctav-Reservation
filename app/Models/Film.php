@@ -13,12 +13,10 @@ class Film extends Model
     public $incrementing = true;
     protected $keyType = 'int';
     protected $fillable = [
-        'judul',
+        'film_title',
+        'synopsis',
         'genre',
-        'durasi',
-        'sutradara',
-        'produksi',
-        'deskripsi',
-        'tanggal_rilis'
+        'duration',
+        'rating_film'
     ];
 }

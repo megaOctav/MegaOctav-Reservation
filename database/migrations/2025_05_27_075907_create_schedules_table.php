@@ -9,19 +9,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('schedules', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->id();
+            $table->id('id_schedule');
             $table->unsignedBigInteger('film_id');
-            // $table->unsignedBigInteger('location_id')->nullable(); // Komentar dulu sampai tabel locations dibuat
+            $table->unsignedBigInteger('location_id');
             $table->date('playing_date');
             $table->time('playing_time');
             $table->timestamps();
 
             // Foreign key ke films.id
-            $table->foreign('film_id')->references('id')->on('films')->onDelete('cascade');
-
-            // Foreign key location_id dikomen dulu karena tabel locations belum ada
-            // $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->foreign('film_id')->references('id_film')->on('films')->onDelete('cascade');
+            // Foreign key ke location id
+            $table->foreign('location_id')->references('id_location')->on('locations')->onDelete('cascade');
         });
     }
 
