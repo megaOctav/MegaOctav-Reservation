@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Seat;
 use Illuminate\Http\Request;
-use App\Models\Seats;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -25,15 +25,15 @@ class SeatsController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/seats",
-     *     tags={"Seats"},
+     *     path="/api/seats",
+     *     tags={"Seat"},
      *     summary="List all seats",
      *     @OA\Response(response=200, description="List of seats")
      * )
      */
     public function index()
     {
-        $seats = Seats::with('schedule')->get(); // asumsi seats memiliki relasi 'schedule'
+        $seats = Seat::with('schedule')->get(); // asumsi seats memiliki relasi 'schedule'
 
         return response()->json([
             'success' => true,
@@ -45,7 +45,7 @@ class SeatsController extends Controller
     /**
      * @OA\Post(
      *     path="/seats",
-     *     tags={"Seats"},
+     *     tags={"Seat"},
      *     summary="Create new seat",
      *     @OA\RequestBody(
      *         required=true,
@@ -67,7 +67,7 @@ class SeatsController extends Controller
             'status_seats' => 'required|in:available,booked',
         ]);
 
-        $seat = Seats::create($validated);
+        $seat = Seat::create($validated);
 
         return response()->json([
             'status' => 201,
@@ -79,7 +79,7 @@ class SeatsController extends Controller
     /**
      * @OA\Get(
      *     path="/seats/{id}",
-     *     tags={"Seats"},
+     *     tags={"Seat"},
      *     summary="Get seat by ID",
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response=200, description="Seat found"),
@@ -88,7 +88,7 @@ class SeatsController extends Controller
      */
     public function show($id)
     {
-        $seat = Seats::with('schedule')->find($id);
+        $seat = Seat::with('schedule')->find($id);
         if (!$seat) {
             return response()->json(['status' => 404, 'message' => 'Seat not found'], 404);
         }
@@ -99,7 +99,7 @@ class SeatsController extends Controller
     /**
      * @OA\Put(
      *     path="/seats/{id}",
-     *     tags={"Seats"},
+     *     tags={"Seat"},
      *     summary="Update a seat",
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\RequestBody(
@@ -114,7 +114,7 @@ class SeatsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $seat = Seats::find($id);
+        $seat = Seat::find($id);
         if (!$seat) {
             return response()->json(['status' => 404, 'message' => 'Seat not found'], 404);
         }
@@ -137,7 +137,7 @@ class SeatsController extends Controller
     /**
      * @OA\Delete(
      *     path="/seats/{id}",
-     *     tags={"Seats"},
+     *     tags={"Seat"},
      *     summary="Delete a seat",
      *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response=200, description="Seat deleted")
@@ -145,7 +145,7 @@ class SeatsController extends Controller
      */
     public function destroy($id)
     {
-        $seat = Seats::find($id);
+        $seat = Seat::find($id);
         if (!$seat) {
             return response()->json(['status' => 404, 'message' => 'Seat not found'], 404);
         }

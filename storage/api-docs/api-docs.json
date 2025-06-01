@@ -4,7 +4,7 @@
         "title": "MegaOctav API",
         "description": "Dokumentasi API untuk sistem reservasi MegaOctav",
         "contact": {
-            "email": "admin@example.com"
+            "email": "imeg290@gmail.com"
         },
         "license": {
             "name": "Apache 2.0",
@@ -14,7 +14,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000",
+            "url": "http://localhost:8000/api",
             "description": "Local API Server"
         }
     ],
@@ -623,22 +623,24 @@
                 }
             }
         },
-        "/seats": {
+        "/api/seats": {
             "get": {
                 "tags": [
-                    "Seats"
+                    "Seat"
                 ],
                 "summary": "List all seats",
-                "operationId": "6b85385bc255ed095b4f7403c208b752",
+                "operationId": "518218b43c35e0b88dc51de9cc0b7ed8",
                 "responses": {
                     "200": {
                         "description": "List of seats"
                     }
                 }
-            },
+            }
+        },
+        "/seats": {
             "post": {
                 "tags": [
-                    "Seats"
+                    "Seat"
                 ],
                 "summary": "Create new seat",
                 "operationId": "c1da66ed128798a203d7cf9957ef7e36",
@@ -682,7 +684,7 @@
         "/seats/{id}": {
             "get": {
                 "tags": [
-                    "Seats"
+                    "Seat"
                 ],
                 "summary": "Get seat by ID",
                 "operationId": "9e46d09f564c08ab96bd419b0dc1ee3f",
@@ -707,7 +709,7 @@
             },
             "put": {
                 "tags": [
-                    "Seats"
+                    "Seat"
                 ],
                 "summary": "Update a seat",
                 "operationId": "389de4043141c5b6aac8de6848819c81",
@@ -753,7 +755,7 @@
             },
             "delete": {
                 "tags": [
-                    "Seats"
+                    "Seat"
                 ],
                 "summary": "Delete a seat",
                 "operationId": "b78f06764fb1f63d6f1db12154b5d488",
@@ -774,13 +776,13 @@
                 }
             }
         },
-        "/api/transactions": {
+        "/transactions": {
             "get": {
                 "tags": [
                     "Transactions"
                 ],
                 "summary": "Ambil semua transaksi",
-                "operationId": "5effd5c228c8c92f09b136d74aacab83",
+                "operationId": "ceac716339cb2455648899fac415b98f",
                 "responses": {
                     "200": {
                         "description": "Berhasil mengambil daftar transaksi",
@@ -831,7 +833,7 @@
                     "Transactions"
                 ],
                 "summary": "Buat transaksi baru",
-                "operationId": "f5614e1a4ee60e20e9c82334e2c7e5be",
+                "operationId": "d3a7a8d8ab4eeb1b4fb29af77c0e98f2",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -926,13 +928,13 @@
                 }
             }
         },
-        "/api/transactions/{id}": {
+        "/transactions/{id}": {
             "get": {
                 "tags": [
                     "Transactions"
                 ],
                 "summary": "Lihat transaksi berdasarkan ID",
-                "operationId": "70ab76f4625c98ff68e6a91150dbf682",
+                "operationId": "a64a50b3720f06a3a57ca6d76fae5b12",
                 "parameters": [
                     {
                         "name": "id",
@@ -957,7 +959,7 @@
                     "Transactions"
                 ],
                 "summary": "Update transaksi",
-                "operationId": "01a62aaa8c47a7066fd238eea6401873",
+                "operationId": "456e172c964e6149c8b721e6d735a6b8",
                 "parameters": [
                     {
                         "name": "id",
@@ -1007,7 +1009,7 @@
                     "Transactions"
                 ],
                 "summary": "Hapus transaksi",
-                "operationId": "9b17c316f838159e7f0a130470b0f58d",
+                "operationId": "4c4238c89f4357bbeb6e0dce40b7a343",
                 "parameters": [
                     {
                         "name": "id",
@@ -1169,8 +1171,8 @@
             "description": "Schedule"
         },
         {
-            "name": "Seats",
-            "description": "Seats"
+            "name": "Seat",
+            "description": "Seat"
         }
     ]
 }

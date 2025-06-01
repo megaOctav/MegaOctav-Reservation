@@ -16,7 +16,7 @@ class TransactionController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/transactions",
+     *     path="/transactions",
      *     tags={"Transactions"},
      *     summary="Ambil semua transaksi",
      *     @OA\Response(
@@ -46,7 +46,7 @@ class TransactionController extends Controller
 
     /**
  * @OA\Post(
- *     path="/api/transactions",
+ *     path="/transactions",
  *     tags={"Transactions"},
  *     summary="Buat transaksi baru",
  *     @OA\RequestBody(
@@ -94,7 +94,7 @@ public function store(Request $request)
 
     /**
      * @OA\Get(
-     *     path="/api/transactions/{id}",
+     *     path="/transactions/{id}",
      *     tags={"Transactions"},
      *     summary="Lihat transaksi berdasarkan ID",
      *     @OA\Parameter(
@@ -123,7 +123,7 @@ public function store(Request $request)
 
     /**
      * @OA\Put(
-     *     path="/api/transactions/{id}",
+     *     path="/transactions/{id}",
      *     tags={"Transactions"},
      *     summary="Update transaksi",
      *     @OA\Parameter(
@@ -162,7 +162,7 @@ public function store(Request $request)
 
     /**
      * @OA\Delete(
-     *     path="/api/transactions/{id}",
+     *     path="/transactions/{id}",
      *     tags={"Transactions"},
      *     summary="Hapus transaksi",
      *     @OA\Parameter(

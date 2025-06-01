@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
  *     title="MegaOctav API",
  *     description="Dokumentasi API untuk sistem reservasi MegaOctav",
  *     @OA\Contact(
- *         email="admin@example.com"
+ *         email="imeg290@gmail.com"
  *     ),
  *     @OA\License(
  *         name="Apache 2.0",
@@ -22,7 +22,7 @@ use Illuminate\Routing\Controller as BaseController;
  * )
  *
  * @OA\Server(
- *     url="http://localhost:8000",
+ *     url=L5_SWAGGER_CONST_HOST,
  *     description="Local API Server"
  * )
  */
