@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller; // penting!
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use OpenApi\Annotations as OA;
 
 /**
  * @OA\Tag(
  *     name="User",
- *     description="API untuk operasi data user"
+ *     description="API untuk operasi data user (admin & pengunjung)"
  * )
  */
 class UserController extends Controller
@@ -27,7 +28,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json(['message' => 'Semua user'], 200);
+        $users = User::all();
+        return response()->json(['data' => $users], 200);
     }
 
     /**
@@ -38,9 +40,10 @@ class UserController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"name", "email"},
+     *             required={"name", "email", "role"},
      *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="email", type="string", format="email")
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="role", type="string", example="admin")
      *         )
      *     ),
      *     @OA\Response(
@@ -51,7 +54,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json(['message' => 'User berhasil ditambahkan'], 201);
+        $request->validate([
+            'name'  => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'role'  => 'required|in:admin,pengunjung'
+        ]);
+
+        $user = User::create($request->only('name', 'email', 'role'));
+
+        return response()->json(['message' => 'User berhasil ditambahkan', 'data' => $user], 201);
     }
 
     /**
@@ -69,7 +80,8 @@ class UserController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="email", type="string", format="email")
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="role", type="string", example="pengunjung")
      *         )
      *     ),
      *     @OA\Response(
@@ -80,7 +92,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json(['message' => "User dengan ID $id berhasil diupdate"], 200);
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name'  => 'sometimes|string',
+            'email' => 'sometimes|email|unique:users,email,' . $id,
+            'role'  => 'sometimes|in:admin,pengunjung'
+        ]);
+
+        $user->update($request->only('name', 'email', 'role'));
+
+        return response()->json(['message' => "User berhasil diupdate", 'data' => $user], 200);
     }
 
     /**
@@ -102,6 +124,32 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $user = User::findOrFail($id);
+        $user->delete();
+
         return response()->json(['message' => "User dengan ID $id berhasil dihapus"], 200);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/users/role/{role}",
+     *     tags={"User"},
+     *     summary="Ambil user berdasarkan role",
+     *     @OA\Parameter(
+     *         name="role",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string", enum={"admin", "pengunjung"})
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Berhasil ambil user berdasarkan role"
+     *     )
+     * )
+     */
+    public function getByRole($role)
+    {
+        $users = User::where('role', $role)->get();
+        return response()->json(['data' => $users], 200);
     }
 }
