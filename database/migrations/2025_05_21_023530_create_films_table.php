@@ -10,7 +10,7 @@ return new class extends Migration
     
     {
         Schema::create('films', function (Blueprint $table) {
-            $table->id('id_film')->primary();
+            $table->id('id_film');
             $table->string('film_title');
             $table->text('synopsis');
             $table->string('genre');

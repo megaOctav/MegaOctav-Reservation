@@ -19,13 +19,13 @@
         }
     ],
     "paths": {
-        "/api/register": {
+        "/register": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Register user baru",
-                "operationId": "a718f172ff3ac464d723835815f8fb57",
+                "operationId": "e66f8a7452e13b03ae4e77dbb42e435c",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -67,13 +67,13 @@
                 }
             }
         },
-        "/api/login": {
+        "/login": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Login user",
-                "operationId": "44212a9096e4b09358281e9ec8a0701d",
+                "operationId": "d618a255475240ba3d40cc39692cd924",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -109,13 +109,13 @@
                 }
             }
         },
-        "/api/logout": {
+        "/logout": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Logout user",
-                "operationId": "79854151e609bd20032aa5aa4d5a35c0",
+                "operationId": "1e357eb2c93a1bdabebcebfa088332bf",
                 "responses": {
                     "200": {
                         "description": "Logout berhasil"
@@ -286,6 +286,34 @@
                 "responses": {
                     "200": {
                         "description": "Film deleted"
+                    }
+                }
+            }
+        },
+        "/schedules/{id}/film": {
+            "get": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Get film by schedule ID",
+                "operationId": "458feec63aace0eeb22bbcd07bff2c8a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Schedule ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Film data for given schedule ID"
+                    },
+                    "404": {
+                        "description": "Schedule not found"
                     }
                 }
             }
@@ -728,34 +756,6 @@
                 "responses": {
                     "200": {
                         "description": "Schedule deleted"
-                    }
-                }
-            }
-        },
-        "/api/schedules/{id}/film": {
-            "get": {
-                "tags": [
-                    "Schedules"
-                ],
-                "summary": "Get film by schedule ID",
-                "operationId": "474ed99392373a736c4348b900c5f44b",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Schedule ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Film data for given schedule ID"
-                    },
-                    "404": {
-                        "description": "Schedule not found"
                     }
                 }
             }
@@ -1337,6 +1337,10 @@
             "description": "Film"
         },
         {
+            "name": "Schedules",
+            "description": "Schedules"
+        },
+        {
             "name": "Location",
             "description": "Location"
         },
@@ -1347,10 +1351,6 @@
         {
             "name": "Schedule",
             "description": "Schedule"
-        },
-        {
-            "name": "Schedules",
-            "description": "Schedules"
         },
         {
             "name": "Seat",

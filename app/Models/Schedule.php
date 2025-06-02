@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Hasfactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Schedule extends Model
 {
-    //
+    use HasFactory;
+
     protected $primaryKey = 'id_schedule';
 
     protected $fillable = [
-        'id_film',
+        'film_id',
         'location_id',
-        'playing_data',
+        'playing_date',
         'playing_time'
     ];
 
@@ -21,6 +22,7 @@ class Schedule extends Model
     {
         return $this->belongsTo(Film::class, 'film_id', 'id_film');
     }
+
     public function location()
     {
         return $this->belongsTo(Location::class, 'location_id', 'id_location');

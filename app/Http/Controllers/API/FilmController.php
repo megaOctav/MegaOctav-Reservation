@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Film;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -150,4 +151,33 @@ class FilmController extends Controller
             'message' => 'Film deleted successfully.'
         ]);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/schedules/{id}/film",
+     *     summary="Get film by schedule ID",
+     *     tags={"Schedules"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Schedule ID",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Film data for given schedule ID"
+     *     ),
+     *     @OA\Response(response=404, description="Schedule not found")
+     * )
+     */
+    public function filmBySchedule($id)
+{
+    $schedule = Schedule::with('film')->findOrFail($id);
+    return response()->json([
+        'status' => 200,
+        'message' => 'Film found from schedule',
+        'data' => $schedule->film
+    ]);
+}
 }
