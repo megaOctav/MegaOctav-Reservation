@@ -22,29 +22,29 @@ Route::get('/user', function (Request $request) {
 
 //schedules
 Route::prefix('schedules')->group(function () {
-    Route::get('/', [ScheduleController::class, 'index']);
-    Route::get('/{id}', [ScheduleController::class, 'show']);
-    Route::post('/', [ScheduleController::class, 'store']);
-    Route::put('/{id}', [ScheduleController::class, 'update']);
-    Route::delete('/{id}', [ScheduleController::class, 'destroy']);
+    Route::get('/allSchedule', [ScheduleController::class, 'index']);
+    Route::get('/Schedule{id}', [ScheduleController::class, 'show']);
+    Route::post('/addSchedule', [ScheduleController::class, 'store']);
+    Route::put('/editSchedule{id}', [ScheduleController::class, 'update']);
+    Route::delete('/deleteSchedule{id}', [ScheduleController::class, 'destroy']);
 });
 
 //prices
 Route::prefix('prices')->group(function () {
-    Route::get('/', [PriceController::class, 'index']);
-    Route::get('/{id}', [PriceController::class, 'show']);
-    Route::post('/', [PriceController::class, 'store']);
-    Route::put('/{id}', [PriceController::class, 'update']);
-    Route::delete('/{id}', [PriceController::class, 'destroy']);
+    Route::get('/allPrices', [PriceController::class, 'index']);
+    Route::get('/Prices{id}', [PriceController::class, 'show']);
+    Route::post('/addPrices', [PriceController::class, 'store']);
+    Route::put('/editPrices{id}', [PriceController::class, 'update']);
+    Route::delete('/deletePrices{id}', [PriceController::class, 'destroy']);
 });
 
 //seats
 Route::prefix('seats')->group(function () {
-    Route::get('/', [SeatsController::class, 'index']);
-    Route::post('/', [SeatsController::class, 'store']);
-    Route::get('/{id}', [SeatsController::class, 'show']);
-    Route::put('/{id}', [SeatsController::class, 'update']);
-    Route::delete('/{id}', [SeatsController::class, 'destroy']);
+    Route::get('/allSeats', [SeatsController::class, 'index']);
+    Route::post('/addSeats', [SeatsController::class, 'store']);
+    Route::get('/Seats{id}', [SeatsController::class, 'show']);
+    Route::put('/editSeats{id}', [SeatsController::class, 'update']);
+    Route::delete('/deleteSeats{id}', [SeatsController::class, 'destroy']);
 });
 
 //Locations
