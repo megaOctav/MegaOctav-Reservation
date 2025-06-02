@@ -10,15 +10,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id(); // jangan pakai 'id_transaction', biar Laravel konsisten
-            $table->unsignedBigInteger('user_id');
+            $table->id('id_transaction'); // jangan pakai 'id_transaction', biar Laravel konsisten
+            $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('schedule_id');
             $table->string('payment_method');
             $table->decimal('total_price', 10, 2);
             $table->date('payment_date');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id_user')->on('users')->onDelete('cascade');
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
             $table->foreign('schedule_id')->references('id_schedule')->on('schedules')->onDelete('cascade');
         });
     }

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    use HasFactory;
+    
+    protected $primaryKey = 'id_transaction';
 
     // Kalau field timestamps kamu default (`created_at` dan `updated_at`), ini gak perlu diubah
     protected $fillable = [

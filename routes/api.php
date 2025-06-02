@@ -57,21 +57,22 @@ Route::prefix('locations')->group(function () {
 
 //transactions
 Route::prefix('transactions')->group(function () {
-    Route::get('/', [TransactionController::class, 'index']);
-    Route::post('/', [TransactionController::class, 'store']);
-    Route::get('/{id}', [TransactionController::class, 'show']);
-    Route::put('/{id}', [TransactionController::class, 'update']);
-    Route::delete('/{id}', [TransactionController::class, 'destroy']);
+    Route::get('/', [TransactionController::class, 'index']);       // GET /api/transactions
+    Route::post('/', [TransactionController::class, 'store']);      // POST /api/transactions
+    Route::get('/{id}', [TransactionController::class, 'show']);    // GET /api/transactions/{id}
+    Route::put('/{id}', [TransactionController::class, 'update']);  // PUT /api/transactions/{id}
+    Route::delete('/{id}', [TransactionController::class, 'destroy']); // DELETE /api/transactions/{id}
 });
 
-//users
+// Users
 Route::prefix('users')->group(function () {
-    Route::get('/', [UserController::class, 'index']);
-    Route::post('/', [UserController::class, 'store']);
-    Route::get('/{id}', [UserController::class, 'show']);
-    Route::put('/{id}', [UserController::class, 'update']);
-    Route::delete('/{id}', [UserController::class, 'destroy']);
+    Route::get('/', [UserController::class, 'index']);      // GET /api/users
+    Route::post('/', [UserController::class, 'store']);     // POST /api/users
+    Route::get('/{id}', [UserController::class, 'show']);   // GET /api/users/{id}
+    Route::put('/{id}', [UserController::class, 'update']); // PUT /api/users/{id}
+    Route::delete('/{id}', [UserController::class, 'destroy']); // DELETE /api/users/{id}
 });
+
 
 // film
 Route::prefix('films')->group(function () {

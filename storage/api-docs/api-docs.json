@@ -1172,11 +1172,11 @@
                 "tags": [
                     "User"
                 ],
-                "summary": "Ambil semua user",
+                "summary": "Get all users",
                 "operationId": "41a0b1897bd592c41f6d146d6dc328c6",
                 "responses": {
                     "200": {
-                        "description": "Berhasil ambil data user"
+                        "description": "List of users"
                     }
                 }
             },
@@ -1184,7 +1184,7 @@
                 "tags": [
                     "User"
                 ],
-                "summary": "Tambah user baru",
+                "summary": "Create a new user",
                 "operationId": "0e35d9af69683ea46987bd306963b368",
                 "requestBody": {
                     "required": true,
@@ -1205,8 +1205,7 @@
                                         "format": "email"
                                     },
                                     "role": {
-                                        "type": "string",
-                                        "example": "admin"
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -1216,17 +1215,42 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "User berhasil dibuat"
+                        "description": "User created"
                     }
                 }
             }
         },
         "/users/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get a user by ID",
+                "operationId": "4912d83c790d90d55874bbb5347b274f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User found"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "User"
                 ],
-                "summary": "Update user",
+                "summary": "Update a user",
                 "operationId": "8c7afeaa86a5fe7a9e7625b62fc415cc",
                 "parameters": [
                     {
@@ -1239,7 +1263,6 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -1252,8 +1275,7 @@
                                         "format": "email"
                                     },
                                     "role": {
-                                        "type": "string",
-                                        "example": "pengunjung"
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -1263,7 +1285,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "User berhasil diupdate"
+                        "description": "User updated"
                     }
                 }
             },
@@ -1271,7 +1293,7 @@
                 "tags": [
                     "User"
                 ],
-                "summary": "Hapus user",
+                "summary": "Delete a user",
                 "operationId": "3ffc44ca53282cb725f506f80f4e03b8",
                 "parameters": [
                     {
@@ -1285,35 +1307,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User berhasil dihapus"
-                    }
-                }
-            }
-        },
-        "/users/role/{role}": {
-            "get": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Ambil user berdasarkan role",
-                "operationId": "22b85e6705a353be52c0fe4e30de440f",
-                "parameters": [
-                    {
-                        "name": "role",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "enum": [
-                                "admin",
-                                "pengunjung"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Berhasil ambil user berdasarkan role"
+                        "description": "User deleted"
                     }
                 }
             }
@@ -1325,8 +1319,7 @@
             "description": "API untuk mengelola transaksi"
         },
         {
-            "name": "User",
-            "description": "API untuk operasi data user (admin & pengunjung)"
+            "name": "User"
         },
         {
             "name": "Auth",
