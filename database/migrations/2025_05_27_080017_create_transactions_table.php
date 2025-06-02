@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id('id_transaction'); // jangan pakai 'id_transaction', biar Laravel konsisten
+            $table->id('id_transaction');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('schedule_id');
             $table->string('payment_method');

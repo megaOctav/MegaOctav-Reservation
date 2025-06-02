@@ -869,7 +869,7 @@
                                         "type": "integer"
                                     },
                                     "number": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "status_seats": {
                                         "type": "string",

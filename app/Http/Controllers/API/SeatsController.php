@@ -105,7 +105,7 @@ class SeatsController extends Controller
      *     @OA\RequestBody(
      *         @OA\JsonContent(
      *             @OA\Property(property="schedule_id", type="integer"),
-     *             @OA\Property(property="number", type="string"),
+     *             @OA\Property(property="number", type="integer"),
      *             @OA\Property(property="status_seats", type="string", enum={"available", "booked"})
      *         )
      *     ),
@@ -120,9 +120,9 @@ class SeatsController extends Controller
         }
 
         $validated = $request->validate([
-            'schedule_id' => 'sometimes|exists:schedules,schedule_id',
-            'number' => 'sometimes|string',
-            'status_seats' => 'sometimes|in:available,booked',
+            'schedule_id' => 'required|exists:schedules,schedule_id',
+            'number' => 'required|string',
+            'status_seats' => 'required|in:available,booked',
         ]);
 
         $seat->update($validated);

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('seats', function (Blueprint $table) {
             $table->id('id_seats');
             $table->unsignedBigInteger('schedule_id');
-            $table->string('number');
+            $table->integer('number');
             $table->enum('status_seats', ['available', 'booked']);
             $table->timestamps();
 
