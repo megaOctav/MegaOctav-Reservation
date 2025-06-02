@@ -49,7 +49,7 @@ class ScheduleController extends Controller
     {
         $validated = $request->validate([
             'film_id' => 'required|exists:films,id_film',
-            'location_id' => 'required|integer',
+            'location_id' => 'required|exists:locations,id_location',
             'playing_date' => 'required|date',
             'playing_time' => 'required|date_format:H:i:s',
         ]);
@@ -106,7 +106,7 @@ class ScheduleController extends Controller
 
         $validated = $request->validate([
             'film_id' => 'required|exists:films,id_film',
-            'location_id' => 'required|integer',
+            'location_id' => 'required|exists:locations,id_location',
             'playing_date' => 'required|date',
             'playing_time' => 'required|date_format:H:i:s',
         ]);
@@ -140,28 +140,4 @@ class ScheduleController extends Controller
         ]);
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/schedules/{id}/film",
-     *     summary="Get film by schedule ID",
-     *     tags={"Schedules"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         description="Schedule ID",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Film data for given schedule ID"
-     *     ),
-     *     @OA\Response(response=404, description="Schedule not found")
-     * )
-     */
-    public function filmBySchedule($id)
-    {
-        $schedule = Schedule::with('film')->findOrFail($id);
-        return response()->json($schedule->film);
-    }
 }

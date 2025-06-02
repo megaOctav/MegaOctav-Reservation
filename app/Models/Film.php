@@ -9,7 +9,6 @@ class Film extends Model
 {
     //
     protected $table = 'films';
-    protected $primaryKey = 'id_film';
     public $incrementing = true;
     protected $keyType = 'int';
     protected $fillable = [

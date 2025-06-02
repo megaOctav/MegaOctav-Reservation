@@ -22,11 +22,11 @@ Route::get('/user', function (Request $request) {
 
 //schedules
 Route::prefix('schedules')->group(function () {
-    Route::get('/allSchedule', [ScheduleController::class, 'index']);
-    Route::get('/Schedule{id}', [ScheduleController::class, 'show']);
-    Route::post('/addSchedule', [ScheduleController::class, 'store']);
-    Route::put('/editSchedule{id}', [ScheduleController::class, 'update']);
-    Route::delete('/deleteSchedule{id}', [ScheduleController::class, 'destroy']);
+    Route::get('/', [ScheduleController::class, 'index']);
+    Route::get('/{id}', [ScheduleController::class, 'show']);
+    Route::post('/', [ScheduleController::class, 'store']);
+    Route::put('/{id}', [ScheduleController::class, 'update']);
+    Route::delete('/{id}', [ScheduleController::class, 'destroy']);
 });
 
 //prices
