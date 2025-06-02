@@ -18,4 +18,16 @@ class Transaction extends Model
         'total_price',
         'payment_date',
     ];
+
+    // Relasi ke User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
+    }
+
+    // Relasi ke Schedule
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class, 'schedule_id', 'id_schedule');
+    }
 }
