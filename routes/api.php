@@ -13,8 +13,7 @@ use App\Http\Controllers\API\AuthController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
-
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -31,20 +30,20 @@ Route::prefix('schedules')->group(function () {
 
 //prices
 Route::prefix('prices')->group(function () {
-    Route::get('/allPrices', [PriceController::class, 'index']);
-    Route::get('/Prices{id}', [PriceController::class, 'show']);
-    Route::post('/addPrices', [PriceController::class, 'store']);
-    Route::put('/editPrices{id}', [PriceController::class, 'update']);
-    Route::delete('/deletePrices{id}', [PriceController::class, 'destroy']);
+    Route::get('/', [PriceController::class, 'index']);
+    Route::get('/{id}', [PriceController::class, 'show']);
+    Route::post('/', [PriceController::class, 'store']);
+    Route::put('/{id}', [PriceController::class, 'update']);
+    Route::delete('/{id}', [PriceController::class, 'destroy']);
 });
 
 //seats
 Route::prefix('seats')->group(function () {
-    Route::get('/allSeats', [SeatsController::class, 'index']);
-    Route::post('/addSeats', [SeatsController::class, 'store']);
-    Route::get('/Seats{id}', [SeatsController::class, 'show']);
-    Route::put('/editSeats{id}', [SeatsController::class, 'update']);
-    Route::delete('/deleteSeats{id}', [SeatsController::class, 'destroy']);
+    Route::get('/', [SeatsController::class, 'index']);
+    Route::post('/', [SeatsController::class, 'store']);
+    Route::get('/{id}', [SeatsController::class, 'show']);
+    Route::put('/{id}', [SeatsController::class, 'update']);
+    Route::delete('/{id}', [SeatsController::class, 'destroy']);
 });
 
 //Locations

@@ -19,13 +19,13 @@
         }
     ],
     "paths": {
-        "/api/register": {
+        "/register": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Register user baru",
-                "operationId": "a718f172ff3ac464d723835815f8fb57",
+                "operationId": "e66f8a7452e13b03ae4e77dbb42e435c",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -67,13 +67,13 @@
                 }
             }
         },
-        "/api/login": {
+        "/login": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Login user",
-                "operationId": "44212a9096e4b09358281e9ec8a0701d",
+                "operationId": "d618a255475240ba3d40cc39692cd924",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -109,13 +109,13 @@
                 }
             }
         },
-        "/api/logout": {
+        "/logout": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Logout user",
-                "operationId": "79854151e609bd20032aa5aa4d5a35c0",
+                "operationId": "1e357eb2c93a1bdabebcebfa088332bf",
                 "responses": {
                     "200": {
                         "description": "Logout berhasil"

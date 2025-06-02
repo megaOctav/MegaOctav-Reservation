@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     /**
      * @OA\Post(
-     *     path="/api/register",
+     *     path="/register",
      *     summary="Register user baru",
      *     tags={"Auth"},
      *     @OA\RequestBody(
@@ -52,7 +52,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/login",
+     *     path="/login",
      *     summary="Login user",
      *     tags={"Auth"},
      *     @OA\RequestBody(
@@ -91,7 +91,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/logout",
+     *     path="/logout",
      *     summary="Logout user",
      *     tags={"Auth"},
      *     security={{"sanctum":{}}},
