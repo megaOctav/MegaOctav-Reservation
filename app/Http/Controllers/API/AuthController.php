@@ -1,111 +1,107 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-/**
- * @OA\Info(
- *     version="1.0.0",
- *     title="Authentication API",
- *     description="Laravel Sanctum Auth with Swagger Docs"
- * )
- */
 class AuthController extends Controller
 {
     /**
      * @OA\Post(
      *     path="/api/register",
+     *     summary="Register user baru",
      *     tags={"Auth"},
-     *     summary="Register new user",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"name", "email", "password"},
+     *             required={"name","email","password"},
      *             @OA\Property(property="name", type="string", example="John Doe"),
      *             @OA\Property(property="email", type="string", format="email", example="john@example.com"),
-     *             @OA\Property(property="password", type="string", format="password", example="secret123")
+     *             @OA\Property(property="password", type="string", format="password", example="password123")
      *         )
      *     ),
-     *     @OA\Response(response=200, description="User registered successfully"),
-     *     @OA\Response(response=422, description="Validation error")
+     *     @OA\Response(response=201, description="Berhasil register"),
+     *     @OA\Response(response=422, description="Validasi gagal")
      * )
      */
     public function register(Request $request)
     {
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users',
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
         ]);
 
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('api_token')->plainTextToken;
 
         return response()->json([
-            'message' => 'User registered successfully',
-            'token'   => $token
-        ]);
+            'message' => 'User berhasil dibuat',
+            'token' => $token,
+            'user' => $user
+        ], 201);
     }
 
     /**
      * @OA\Post(
      *     path="/api/login",
-     *     tags={"Auth"},
      *     summary="Login user",
+     *     tags={"Auth"},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"email", "password"},
-     *             @OA\Property(property="email", type="string", format="email", example="john@example.com"),
-     *             @OA\Property(property="password", type="string", format="password", example="secret123")
+     *             required={"email","password"},
+     *             @OA\Property(property="email", type="string", example="john@example.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="password123")
      *         )
      *     ),
-     *     @OA\Response(response=200, description="Login successful"),
-     *     @OA\Response(response=401, description="Invalid credentials")
+     *     @OA\Response(response=200, description="Login berhasil"),
+     *     @OA\Response(response=401, description="Login gagal")
      * )
      */
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json(['message' => 'Email atau password salah'], 401);
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('api_token')->plainTextToken;
 
         return response()->json([
-            'message' => 'Login successful',
-            'token'   => $token
+            'message' => 'Login berhasil',
+            'token' => $token,
+            'user' => $user
         ]);
     }
 
     /**
      * @OA\Post(
      *     path="/api/logout",
-     *     tags={"Auth"},
      *     summary="Logout user",
-     *     security={{"bearerAuth":{}}},
-     *     @OA\Response(response=200, description="Logout successful")
+     *     tags={"Auth"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(response=200, description="Logout berhasil")
      * )
      */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => 'Logout successful']);
+        return response()->json(['message' => 'Logout berhasil']);
     }
 }

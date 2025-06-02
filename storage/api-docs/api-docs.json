@@ -19,6 +19,115 @@
         }
     ],
     "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register user baru",
+                "operationId": "a718f172ff3ac464d723835815f8fb57",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil register"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "operationId": "44212a9096e4b09358281e9ec8a0701d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login berhasil"
+                    },
+                    "401": {
+                        "description": "Login gagal"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user",
+                "operationId": "79854151e609bd20032aa5aa4d5a35c0",
+                "responses": {
+                    "200": {
+                        "description": "Logout berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/films": {
             "get": {
                 "tags": [
@@ -623,6 +732,34 @@
                 }
             }
         },
+        "/api/schedules/{id}/film": {
+            "get": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Get film by schedule ID",
+                "operationId": "474ed99392373a736c4348b900c5f44b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Schedule ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Film data for given schedule ID"
+                    },
+                    "404": {
+                        "description": "Schedule not found"
+                    }
+                }
+            }
+        },
         "/api/seats": {
             "get": {
                 "tags": [
@@ -1056,7 +1193,8 @@
                             "schema": {
                                 "required": [
                                     "name",
-                                    "email"
+                                    "email",
+                                    "role"
                                 ],
                                 "properties": {
                                     "name": {
@@ -1065,6 +1203,10 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "admin"
                                     }
                                 },
                                 "type": "object"
@@ -1108,6 +1250,10 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "pengunjung"
                                     }
                                 },
                                 "type": "object"
@@ -1143,6 +1289,34 @@
                     }
                 }
             }
+        },
+        "/users/role/{role}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Ambil user berdasarkan role",
+                "operationId": "22b85e6705a353be52c0fe4e30de440f",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "admin",
+                                "pengunjung"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil ambil user berdasarkan role"
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -1152,7 +1326,11 @@
         },
         {
             "name": "User",
-            "description": "API untuk operasi data user"
+            "description": "API untuk operasi data user (admin & pengunjung)"
+        },
+        {
+            "name": "Auth",
+            "description": "Auth"
         },
         {
             "name": "Film",
@@ -1169,6 +1347,10 @@
         {
             "name": "Schedule",
             "description": "Schedule"
+        },
+        {
+            "name": "Schedules",
+            "description": "Schedules"
         },
         {
             "name": "Seat",
