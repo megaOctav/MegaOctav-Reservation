@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('role')->default('user'); // contoh default 'user'
+            $table->string('password');
             $table->timestamps(); // created_at & updated_at
         });
     }

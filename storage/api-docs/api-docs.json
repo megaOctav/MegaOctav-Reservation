@@ -19,13 +19,13 @@
         }
     ],
     "paths": {
-        "/register": {
+        "/auth/register": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Register user baru",
-                "operationId": "e66f8a7452e13b03ae4e77dbb42e435c",
+                "operationId": "c47a1b563e5e8bc3c7b962f893981e84",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -34,22 +34,28 @@
                                 "required": [
                                     "name",
                                     "email",
-                                    "password"
+                                    "role",
+                                    "password",
+                                    "password_confirmation"
                                 ],
                                 "properties": {
                                     "name": {
-                                        "type": "string",
-                                        "example": "John Doe"
+                                        "type": "string"
                                     },
                                     "email": {
                                         "type": "string",
-                                        "format": "email",
-                                        "example": "john@example.com"
+                                        "format": "email"
+                                    },
+                                    "role": {
+                                        "type": "string"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "format": "password",
-                                        "example": "password123"
+                                        "format": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password"
                                     }
                                 },
                                 "type": "object"
@@ -59,7 +65,36 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Berhasil register"
+                        "description": "Registrasi berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
                         "description": "Validasi gagal"
@@ -67,13 +102,13 @@
                 }
             }
         },
-        "/login": {
+        "/auth/login": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Login user",
-                "operationId": "d618a255475240ba3d40cc39692cd924",
+                "operationId": "1ff9c65c5cd1a8e0786e318eed856972",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -86,12 +121,11 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "example": "john@example.com"
+                                        "format": "email"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "format": "password",
-                                        "example": "password123"
+                                        "format": "password"
                                     }
                                 },
                                 "type": "object"
@@ -101,21 +135,47 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Login berhasil"
+                        "description": "Login berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
-                    "401": {
-                        "description": "Login gagal"
+                    "422": {
+                        "description": "Validasi gagal"
                     }
                 }
             }
         },
-        "/logout": {
+        "/auth/logout": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Logout user",
-                "operationId": "1e357eb2c93a1bdabebcebfa088332bf",
+                "operationId": "eae6a8251a6469bbabe454860f64cf37",
                 "responses": {
                     "200": {
                         "description": "Logout berhasil"
@@ -1315,15 +1375,15 @@
     },
     "tags": [
         {
+            "name": "Auth",
+            "description": "API Endpoints untuk autentikasi"
+        },
+        {
             "name": "Transactions",
             "description": "API untuk mengelola transaksi"
         },
         {
             "name": "User"
-        },
-        {
-            "name": "Auth",
-            "description": "Auth"
         },
         {
             "name": "Film",

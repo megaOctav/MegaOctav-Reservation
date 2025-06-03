@@ -6,84 +6,125 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Tag(
+ *     name="Auth",
+ *     description="API Endpoints untuk autentikasi"
+ * )
+ */
 class AuthController extends Controller
 {
+
     /**
      * @OA\Post(
-     *     path="/register",
-     *     summary="Register user baru",
+     *     path="/auth/register",
      *     tags={"Auth"},
+     *     summary="Register user baru",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"name","email","password"},
-     *             @OA\Property(property="name", type="string", example="John Doe"),
-     *             @OA\Property(property="email", type="string", format="email", example="john@example.com"),
-     *             @OA\Property(property="password", type="string", format="password", example="password123")
+     *             required={"name", "email", "role","password", "password_confirmation"},
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="role", type="string"),
+     *             @OA\Property(property="password", type="string", format="password"),
+     *             @OA\Property(property="password_confirmation", type="string", format="password")
      *         )
      *     ),
-     *     @OA\Response(response=201, description="Berhasil register"),
-     *     @OA\Response(response=422, description="Validasi gagal")
+     *     @OA\Response(
+     *         response=201,
+     *         description="Registrasi berhasil",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string"),
+     *             @OA\Property(property="user", type="object",
+     *                 @OA\Property(property="id", type="integer"),
+     *                 @OA\Property(property="name", type="string"),
+     *                 @OA\Property(property="email", type="string"),
+     *                 @OA\Property(property="role", type="string")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validasi gagal"
+     *     )
      * )
      */
     public function register(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed'
         ]);
 
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => bcrypt($validated['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
         ]);
 
-        $token = $user->createToken('api_token')->plainTextToken;
+        $token = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
-            'message' => 'User berhasil dibuat',
             'token' => $token,
             'user' => $user
         ], 201);
     }
 
+
     /**
      * @OA\Post(
-     *     path="/login",
-     *     summary="Login user",
+     *     path="/auth/login",
      *     tags={"Auth"},
+     *     summary="Login user",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"email","password"},
-     *             @OA\Property(property="email", type="string", example="john@example.com"),
-     *             @OA\Property(property="password", type="string", format="password", example="password123")
+     *             required={"email", "password"},
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="password", type="string", format="password")
      *         )
      *     ),
-     *     @OA\Response(response=200, description="Login berhasil"),
-     *     @OA\Response(response=401, description="Login gagal")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Login berhasil",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string"),
+     *             @OA\Property(property="user", type="object",
+     *                 @OA\Property(property="id", type="integer"),
+     *                 @OA\Property(property="name", type="string"),
+     *                 @OA\Property(property="email", type="string")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validasi gagal"
+     *     )
      * )
      */
     public function login(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required'
         ]);
 
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Email atau password salah'], 401);
+            throw ValidationException::withMessages([
+                'email' => ['Kredensial yang diberikan salah.'],
+            ]);
         }
 
-        $token = $user->createToken('api_token')->plainTextToken;
+        $token = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
-            'message' => 'Login berhasil',
             'token' => $token,
             'user' => $user
         ]);
@@ -91,17 +132,19 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/logout",
-     *     summary="Logout user",
+     *     path="/auth/logout",
      *     tags={"Auth"},
+     *     summary="Logout user",
      *     security={{"sanctum":{}}},
-     *     @OA\Response(response=200, description="Logout berhasil")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Logout berhasil"
+     *     )
      * )
      */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-
         return response()->json(['message' => 'Logout berhasil']);
     }
-}
+} 
