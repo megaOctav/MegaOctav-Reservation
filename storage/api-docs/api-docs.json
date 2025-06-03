@@ -976,60 +976,21 @@
         "/transactions": {
             "get": {
                 "tags": [
-                    "Transactions"
+                    "Transaction"
                 ],
-                "summary": "Ambil semua transaksi",
+                "summary": "List all transactions",
                 "operationId": "ceac716339cb2455648899fac415b98f",
                 "responses": {
                     "200": {
-                        "description": "Berhasil mengambil daftar transaksi",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "integer"
-                                            },
-                                            "id_user": {
-                                                "type": "integer"
-                                            },
-                                            "schedule_id": {
-                                                "type": "integer"
-                                            },
-                                            "payment_method": {
-                                                "type": "string"
-                                            },
-                                            "total_price": {
-                                                "type": "number"
-                                            },
-                                            "payment_date": {
-                                                "type": "string",
-                                                "format": "date"
-                                            },
-                                            "created_at": {
-                                                "type": "string",
-                                                "format": "date-time"
-                                            },
-                                            "updated_at": {
-                                                "type": "string",
-                                                "format": "date-time"
-                                            }
-                                        },
-                                        "type": "object"
-                                    }
-                                }
-                            }
-                        }
+                        "description": "List of transactions"
                     }
                 }
             },
             "post": {
                 "tags": [
-                    "Transactions"
+                    "Transaction"
                 ],
-                "summary": "Buat transaksi baru",
+                "summary": "Create new transaction",
                 "operationId": "d3a7a8d8ab4eeb1b4fb29af77c0e98f2",
                 "requestBody": {
                     "required": true,
@@ -1045,25 +1006,21 @@
                                 ],
                                 "properties": {
                                     "id_user": {
-                                        "type": "integer",
-                                        "example": 1
+                                        "type": "integer"
                                     },
                                     "schedule_id": {
-                                        "type": "integer",
-                                        "example": 2
+                                        "type": "integer"
                                     },
                                     "payment_method": {
-                                        "type": "string",
-                                        "example": "gopay"
+                                        "type": "string"
                                     },
                                     "total_price": {
                                         "type": "number",
-                                        "example": 100000
+                                        "format": "float"
                                     },
                                     "payment_date": {
                                         "type": "string",
-                                        "format": "date",
-                                        "example": "2025-05-21"
+                                        "format": "date"
                                     }
                                 },
                                 "type": "object"
@@ -1073,54 +1030,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Transaksi berhasil dibuat",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 5
-                                        },
-                                        "id_user": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "schedule_id": {
-                                            "type": "integer",
-                                            "example": 2
-                                        },
-                                        "payment_method": {
-                                            "type": "string",
-                                            "example": "gopay"
-                                        },
-                                        "total_price": {
-                                            "type": "number",
-                                            "example": 100000
-                                        },
-                                        "payment_date": {
-                                            "type": "string",
-                                            "format": "date",
-                                            "example": "2025-05-21"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2025-05-22T10:00:00Z"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2025-05-22T10:00:00Z"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
+                        "description": "Transaction created"
                     }
                 }
             }
@@ -1128,9 +1038,9 @@
         "/transactions/{id}": {
             "get": {
                 "tags": [
-                    "Transactions"
+                    "Transaction"
                 ],
-                "summary": "Lihat transaksi berdasarkan ID",
+                "summary": "Get transaction by ID",
                 "operationId": "a64a50b3720f06a3a57ca6d76fae5b12",
                 "parameters": [
                     {
@@ -1144,18 +1054,18 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Detail transaksi"
+                        "description": "Transaction data"
                     },
                     "404": {
-                        "description": "Transaksi tidak ditemukan"
+                        "description": "Not found"
                     }
                 }
             },
             "put": {
                 "tags": [
-                    "Transactions"
+                    "Transaction"
                 ],
-                "summary": "Update transaksi",
+                "summary": "Update a transaction",
                 "operationId": "456e172c964e6149c8b721e6d735a6b8",
                 "parameters": [
                     {
@@ -1168,23 +1078,26 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
+                                    "id_user": {
+                                        "type": "integer"
+                                    },
+                                    "schedule_id": {
+                                        "type": "integer"
+                                    },
                                     "payment_method": {
-                                        "type": "string",
-                                        "example": "qris"
+                                        "type": "string"
                                     },
                                     "total_price": {
                                         "type": "number",
-                                        "example": 120000
+                                        "format": "float"
                                     },
                                     "payment_date": {
                                         "type": "string",
-                                        "format": "date",
-                                        "example": "2025-05-22"
+                                        "format": "date"
                                     }
                                 },
                                 "type": "object"
@@ -1194,18 +1107,15 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Transaksi berhasil diupdate"
-                    },
-                    "404": {
-                        "description": "Transaksi tidak ditemukan"
+                        "description": "Transaction updated"
                     }
                 }
             },
             "delete": {
                 "tags": [
-                    "Transactions"
+                    "Transaction"
                 ],
-                "summary": "Hapus transaksi",
+                "summary": "Delete a transaction",
                 "operationId": "4c4238c89f4357bbeb6e0dce40b7a343",
                 "parameters": [
                     {
@@ -1218,11 +1128,8 @@
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "Transaksi berhasil dihapus"
-                    },
-                    "404": {
-                        "description": "Transaksi tidak ditemukan"
+                    "200": {
+                        "description": "Transaction deleted"
                     }
                 }
             }
@@ -1379,10 +1286,6 @@
             "description": "API Endpoints untuk autentikasi"
         },
         {
-            "name": "Transactions",
-            "description": "API untuk mengelola transaksi"
-        },
-        {
             "name": "User"
         },
         {
@@ -1408,6 +1311,10 @@
         {
             "name": "Seat",
             "description": "Seat"
+        },
+        {
+            "name": "Transaction",
+            "description": "Transaction"
         }
     ]
 }

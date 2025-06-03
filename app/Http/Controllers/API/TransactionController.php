@@ -6,188 +6,142 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 
-/**
- * @OA\Tag(
- *     name="Transactions",
- *     description="API untuk mengelola transaksi"
- * )
- */
 class TransactionController extends Controller
 {
     /**
      * @OA\Get(
      *     path="/transactions",
-     *     tags={"Transactions"},
-     *     summary="Ambil semua transaksi",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Berhasil mengambil daftar transaksi",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(
-     *                 type="object",
-     *                 @OA\Property(property="id", type="integer"),
-     *                 @OA\Property(property="id_user", type="integer"),
-     *                 @OA\Property(property="schedule_id", type="integer"),
-     *                 @OA\Property(property="payment_method", type="string"),
-     *                 @OA\Property(property="total_price", type="number"),
-     *                 @OA\Property(property="payment_date", type="string", format="date"),
-     *                 @OA\Property(property="created_at", type="string", format="date-time"),
-     *                 @OA\Property(property="updated_at", type="string", format="date-time")
-     *             )
-     *         )
-     *     )
+     *     tags={"Transaction"},
+     *     summary="List all transactions",
+     *     @OA\Response(response=200, description="List of transactions")
      * )
      */
     public function index()
     {
-        return Transaction::all();
+        $transactions = Transaction::with(['user', 'schedule'])->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'List of transactions',
+            'data' => $transactions
+        ]);
     }
 
     /**
- * @OA\Post(
- *     path="/transactions",
- *     tags={"Transactions"},
- *     summary="Buat transaksi baru",
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(
- *             required={"id_user", "schedule_id", "payment_method", "total_price", "payment_date"},
- *             @OA\Property(property="id_user", type="integer", example=1),
- *             @OA\Property(property="schedule_id", type="integer", example=2),
- *             @OA\Property(property="payment_method", type="string", example="gopay"),
- *             @OA\Property(property="total_price", type="number", example=100000),
- *             @OA\Property(property="payment_date", type="string", format="date", example="2025-05-21")
- *         )
- *     ),
- *     @OA\Response(
- *         response=201,
- *         description="Transaksi berhasil dibuat",
- *         @OA\JsonContent(
- *             @OA\Property(property="id", type="integer", example=5),
- *             @OA\Property(property="id_user", type="integer", example=1),
- *             @OA\Property(property="schedule_id", type="integer", example=2),
- *             @OA\Property(property="payment_method", type="string", example="gopay"),
- *             @OA\Property(property="total_price", type="number", example=100000),
- *             @OA\Property(property="payment_date", type="string", format="date", example="2025-05-21"),
- *             @OA\Property(property="created_at", type="string", format="date-time", example="2025-05-22T10:00:00Z"),
- *             @OA\Property(property="updated_at", type="string", format="date-time", example="2025-05-22T10:00:00Z")
- *         )
- *     ),
- *     @OA\Response(response=400, description="Bad request")
- * )
- */
-public function store(Request $request)
-{
-    $request->validate([
-        'id_user' => 'required|exists:users,id',
-        'schedule_id' => 'required|exists:schedules,id',
-        'payment_method' => 'required|string',
-        'total_price' => 'required|numeric',
-        'payment_date' => 'required|date',
-    ]);
+     * @OA\Post(
+     *     path="/transactions",
+     *     tags={"Transaction"},
+     *     summary="Create new transaction",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"id_user", "schedule_id", "payment_method", "total_price", "payment_date"},
+     *             @OA\Property(property="id_user", type="integer"),
+     *             @OA\Property(property="schedule_id", type="integer"),
+     *             @OA\Property(property="payment_method", type="string"),
+     *             @OA\Property(property="total_price", type="number", format="float"),
+     *             @OA\Property(property="payment_date", type="string", format="date")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Transaction created")
+     * )
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'id_user' => 'required|exists:users,id_user',
+            'schedule_id' => 'required|exists:schedules,id_schedule',
+            'payment_method' => 'required|string',
+            'total_price' => 'required|numeric',
+            'payment_date' => 'required|date',
+        ]);
 
-    $transaction = Transaction::create($request->all());
+        $transaction = Transaction::create($validated);
 
-    return response()->json($transaction, 201);
-}
+        return response()->json([
+            'status' => 201,
+            'message' => 'Transaction created successfully.',
+            'data' => $transaction
+        ], 201);
+    }
 
     /**
      * @OA\Get(
      *     path="/transactions/{id}",
-     *     tags={"Transactions"},
-     *     summary="Lihat transaksi berdasarkan ID",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Detail transaksi"
-     *     ),
-     *     @OA\Response(response=404, description="Transaksi tidak ditemukan")
+     *     tags={"Transaction"},
+     *     summary="Get transaction by ID",
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Transaction data"),
+     *     @OA\Response(response=404, description="Not found")
      * )
      */
     public function show($id)
     {
-        $transaction = Transaction::find($id);
+        $transaction = Transaction::with(['user', 'schedule'])->find($id);
 
         if (!$transaction) {
-            return response()->json(['message' => 'Not Found'], 404);
+            return response()->json(['status' => 404, 'message' => 'Transaction not found'], 404);
         }
 
-        return response()->json($transaction);
+        return response()->json(['status' => 200, 'message' => 'Transaction found', 'data' => $transaction]);
     }
 
     /**
      * @OA\Put(
      *     path="/transactions/{id}",
-     *     tags={"Transactions"},
-     *     summary="Update transaksi",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
+     *     tags={"Transaction"},
+     *     summary="Update a transaction",
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\RequestBody(
-     *         required=true,
      *         @OA\JsonContent(
-     *             @OA\Property(property="payment_method", type="string", example="qris"),
-     *             @OA\Property(property="total_price", type="number", example=120000),
-     *             @OA\Property(property="payment_date", type="string", format="date", example="2025-05-22")
+     *             @OA\Property(property="id_user", type="integer"),
+     *             @OA\Property(property="schedule_id", type="integer"),
+     *             @OA\Property(property="payment_method", type="string"),
+     *             @OA\Property(property="total_price", type="number", format="float"),
+     *             @OA\Property(property="payment_date", type="string", format="date")
      *         )
      *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Transaksi berhasil diupdate"
-     *     ),
-     *     @OA\Response(response=404, description="Transaksi tidak ditemukan")
+     *     @OA\Response(response=200, description="Transaction updated")
      * )
      */
     public function update(Request $request, $id)
     {
-        $transaction = Transaction::find($id);
+        $transaction = Transaction::findOrFail($id);
 
-        if (!$transaction) {
-            return response()->json(['message' => 'Not Found'], 404);
-        }
+        $validated = $request->validate([
+            'id_user' => 'required|exists:users,id_user',
+            'schedule_id' => 'required|exists:schedules,id_schedule',
+            'payment_method' => 'required|string',
+            'total_price' => 'required|numeric',
+            'payment_date' => 'required|date',
+        ]);
 
-        $transaction->update($request->all());
+        $transaction->update($validated);
 
-        return response()->json($transaction);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Transaction updated successfully.',
+            'data' => $transaction
+        ]);
     }
 
     /**
      * @OA\Delete(
      *     path="/transactions/{id}",
-     *     tags={"Transactions"},
-     *     summary="Hapus transaksi",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=204,
-     *         description="Transaksi berhasil dihapus"
-     *     ),
-     *     @OA\Response(response=404, description="Transaksi tidak ditemukan")
+     *     tags={"Transaction"},
+     *     summary="Delete a transaction",
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Transaction deleted")
      * )
      */
     public function destroy($id)
     {
-        $transaction = Transaction::find($id);
-
-        if (!$transaction) {
-            return response()->json(['message' => 'Not Found'], 404);
-        }
-
+        $transaction = Transaction::findOrFail($id);
         $transaction->delete();
 
-        return response()->json(null, 204);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Transaction deleted successfully.'
+        ]);
     }
 }
