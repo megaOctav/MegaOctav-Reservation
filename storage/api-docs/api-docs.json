@@ -820,21 +820,19 @@
                 }
             }
         },
-        "/api/seats": {
+        "/seats": {
             "get": {
                 "tags": [
                     "Seat"
                 ],
                 "summary": "List all seats",
-                "operationId": "518218b43c35e0b88dc51de9cc0b7ed8",
+                "operationId": "6b85385bc255ed095b4f7403c208b752",
                 "responses": {
                     "200": {
                         "description": "List of seats"
                     }
                 }
-            }
-        },
-        "/seats": {
+            },
             "post": {
                 "tags": [
                     "Seat"
@@ -856,7 +854,7 @@
                                         "type": "integer"
                                     },
                                     "number": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "status_seats": {
                                         "type": "string",

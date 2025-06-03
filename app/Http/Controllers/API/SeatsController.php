@@ -25,7 +25,7 @@ class SeatsController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/seats",
+     *     path="/seats",
      *     tags={"Seat"},
      *     summary="List all seats",
      *     @OA\Response(response=200, description="List of seats")
@@ -52,7 +52,7 @@ class SeatsController extends Controller
      *         @OA\JsonContent(
      *             required={"schedule_id", "number", "status_seats"},
      *             @OA\Property(property="schedule_id", type="integer"),
-     *             @OA\Property(property="number", type="string"),
+     *             @OA\Property(property="number", type="integer"),
      *             @OA\Property(property="status_seats", type="string", enum={"available", "booked"})
      *         )
      *     ),
@@ -62,8 +62,8 @@ class SeatsController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'schedule_id' => 'required|exists:schedules,schedule_id',
-            'number' => 'required|string',
+            'schedule_id' => 'required|exists:schedules,id_schedule',
+            'number' => 'required|integer',
             'status_seats' => 'required|in:available,booked',
         ]);
 
@@ -120,8 +120,8 @@ class SeatsController extends Controller
         }
 
         $validated = $request->validate([
-            'schedule_id' => 'required|exists:schedules,schedule_id',
-            'number' => 'required|string',
+            'schedule_id' => 'required|exists:schedules,id_schedule',
+            'number' => 'required|integer',
             'status_seats' => 'required|in:available,booked',
         ]);
 
