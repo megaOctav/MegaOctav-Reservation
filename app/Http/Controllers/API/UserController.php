@@ -64,6 +64,8 @@ class UserController extends Controller
      *     @OA\Response(response=404, description="User not found")
      * )
      */
+
+    
     public function show($id)
     {
         $user = User::find($id);

@@ -153,6 +153,9 @@
                                                 },
                                                 "email": {
                                                     "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
                                                 }
                                             },
                                             "type": "object"
@@ -162,6 +165,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Kredensial tidak valid"
                     },
                     "422": {
                         "description": "Validasi gagal"

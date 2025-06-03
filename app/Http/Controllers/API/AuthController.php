@@ -17,7 +17,6 @@ use OpenApi\Annotations as OA;
  */
 class AuthController extends Controller
 {
-
     /**
      * @OA\Post(
      *     path="/auth/register",
@@ -26,7 +25,7 @@ class AuthController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"name", "email", "role","password", "password_confirmation"},
+     *             required={"name", "email", "role", "password", "password_confirmation"},
      *             @OA\Property(property="name", type="string"),
      *             @OA\Property(property="email", type="string", format="email"),
      *             @OA\Property(property="role", type="string"),
@@ -47,10 +46,7 @@ class AuthController extends Controller
      *             )
      *         )
      *     ),
-     *     @OA\Response(
-     *         response=422,
-     *         description="Validasi gagal"
-     *     )
+     *     @OA\Response(response=422, description="Validasi gagal")
      * )
      */
     public function register(Request $request)
@@ -58,13 +54,15 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed'
+            'role' => 'required|string',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'role' => $request->role,
+            'password' => Hash::make($request->password),
         ]);
 
         $token = $user->createToken('auth-token')->plainTextToken;
@@ -74,7 +72,6 @@ class AuthController extends Controller
             'user' => $user
         ], 201);
     }
-
 
     /**
      * @OA\Post(
@@ -97,14 +94,13 @@ class AuthController extends Controller
      *             @OA\Property(property="user", type="object",
      *                 @OA\Property(property="id", type="integer"),
      *                 @OA\Property(property="name", type="string"),
-     *                 @OA\Property(property="email", type="string")
+     *                 @OA\Property(property="email", type="string"),
+     *                 @OA\Property(property="role", type="string")
      *             )
      *         )
      *     ),
-     *     @OA\Response(
-     *         response=422,
-     *         description="Validasi gagal"
-     *     )
+     *     @OA\Response(response=401, description="Kredensial tidak valid"),
+     *     @OA\Response(response=422, description="Validasi gagal")
      * )
      */
     public function login(Request $request)
@@ -117,15 +113,27 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
-        return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $token = $user->createToken('auth-token')->plainTextToken;
+        try {
+            $token = $user->createToken('auth-token')->plainTextToken;
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Token creation failed',
+                'error' => $e->getMessage()
+            ], 500);
+        }
 
         return response()->json([
             'token' => $token,
-            'user' => $user
-        ]);
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role,
+            ]
+        ], 200);
     }
 
     /**
@@ -134,15 +142,13 @@ class AuthController extends Controller
      *     tags={"Auth"},
      *     summary="Logout user",
      *     security={{"sanctum":{}}},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Logout berhasil"
-     *     )
+     *     @OA\Response(response=200, description="Logout berhasil")
      * )
      */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
+
         return response()->json(['message' => 'Logout berhasil']);
     }
-} 
+}
